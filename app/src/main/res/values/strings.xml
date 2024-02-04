@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Book Recommender</string>
+    <string name="home_icon_label">Home</string>
 </resources>

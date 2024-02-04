@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Book Recommender"
 include(":app")
- 
+include(":core:designsystem")

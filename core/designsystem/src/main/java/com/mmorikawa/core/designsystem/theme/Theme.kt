@@ -1,4 +1,4 @@
-package com.mmorikawa.book_recommender.ui.theme
+package com.mmorikawa.core.designsystem.theme
 
 import android.app.Activity
 import android.os.Build

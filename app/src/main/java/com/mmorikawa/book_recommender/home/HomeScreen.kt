@@ -4,10 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,10 +13,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.vectorResource
 import com.mmorikawa.book_recommender.R
+import com.mmorikawa.core.designsystem.icon.BookRecIcons
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,13 +28,13 @@ fun HomeScreen() {
             // Home
             NavigationBarItem(selected = true, // This will be stored in some kind of UiState
                 onClick = { /*TODO*/ }, icon = {
-                    Icon(imageVector = Icons.Outlined.Home, "Home")
+                    Icon(imageVector = BookRecIcons.Home, "Home")
                 }, label = { Text("Home") }, alwaysShowLabel = true
             )
             // Reading History
             NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.history),
+                    imageVector = BookRecIcons.History,
                     "History"
                 )
             }, label = { Text("History") }, alwaysShowLabel = true
@@ -47,7 +42,7 @@ fun HomeScreen() {
             // Browse/Search Recs
             NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.browse),
+                    imageVector = BookRecIcons.Browse,
                     "Browse"
                 )
             }, label = { Text("Browse") }, alwaysShowLabel = true
@@ -55,7 +50,7 @@ fun HomeScreen() {
             // Reading List
             NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.List,
+                    imageVector = BookRecIcons.List,
                     "Read List"
                 )
             }, label = { Text("Read List") }, alwaysShowLabel = true
@@ -63,7 +58,7 @@ fun HomeScreen() {
             // Settings
             NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
                 Icon(
-                    imageVector = Icons.Outlined.Settings,
+                    imageVector = BookRecIcons.Settings,
                     "Settings"
                 )
             }, label = { Text("Settings") }, alwaysShowLabel = true
