@@ -53,6 +53,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(project(":core:designsystem"))
     implementation("androidx.navigation:navigation-common-ktx:2.7.6")
+    implementation(project(":core:model"))
+    implementation(project(":core:ui"))
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
