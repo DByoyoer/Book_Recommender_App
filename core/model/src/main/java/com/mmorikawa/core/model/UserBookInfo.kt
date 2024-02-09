@@ -9,10 +9,10 @@ data class UserBookInfo internal constructor(
     val isOnReadingList: Boolean,
     val hasBeenRead: Boolean,
 
-){
+    ) {
     constructor(bookInfo: BookInfo, userData: UserData) : this(
         isbn = bookInfo.isbn,
-        title = bookInfo.isbn,
+        title = bookInfo.title,
         genre = bookInfo.genre,
         bookCoverUrl = bookInfo.bookCoverUrl,
         author = bookInfo.author,
