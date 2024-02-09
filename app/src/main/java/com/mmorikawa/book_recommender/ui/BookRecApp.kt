@@ -17,7 +17,7 @@ import androidx.navigation.NavDestination
 import com.mmorikawa.book_recommender.navigation.TopLevelDestination
 import com.mmorikawa.core.designsystem.component.BookRecNavBar
 import com.mmorikawa.core.designsystem.component.BookRecNavBarItem
-import com.mmorikawa.feature.recommendation.RecommendationScreen
+import com.mmorikawa.feature.reading_list.ReadingListScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,7 +38,8 @@ fun BookRecApp() {
         }, modifier = Modifier.fillMaxSize()
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                RecommendationScreen()
+                //RecommendationScreen()
+                ReadingListScreen()
             }
         }
 
