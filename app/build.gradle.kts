@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:recommendation"))
     implementation(project(":feature:reading_list"))
+    implementation(project(":feature:history"))
 
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
