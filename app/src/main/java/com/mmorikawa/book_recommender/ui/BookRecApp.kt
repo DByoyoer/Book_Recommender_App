@@ -28,13 +28,20 @@ fun BookRecApp(appState: BookRecAppState = rememberBookRecAppState()) {
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
+        val currentTopLevelDestination = appState.currentTopLevelDestination
         // TODO: Use state to determine
         Scaffold(topBar = {
-            CenterAlignedTopAppBar(title = { Text(text = "App Name Here") })
+            // TODO: Extract to designsystem and need to elaborate for extra features
+            CenterAlignedTopAppBar(
+                title = {
+                    if (currentTopLevelDestination != null) {
+                        Text(stringResource(id = currentTopLevelDestination.screenTitleTextId))
+                    }
+                })
         }, bottomBar = {
             BookRecBottomBar(
                 destinations = appState.topLevelDestinations,
-                onNavigateToDestination = { appState::navigateToTopLevelDestination },
+                onNavigateToDestination = appState::navigateToTopLevelDestination,
                 currentDestination = appState.currentDestination
             )
         }, modifier = Modifier.fillMaxSize()
