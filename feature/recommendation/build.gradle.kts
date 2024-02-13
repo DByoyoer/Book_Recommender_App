@@ -37,7 +37,6 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
     implementation(project(":core:testing"))
-    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
@@ -47,6 +46,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("com.google.android.material:material:1.11.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     testImplementation("junit:junit:4.13.2")

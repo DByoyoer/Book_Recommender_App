@@ -6,6 +6,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.mmorikawa.book_recommender.navigation.TopLevelDestination
+import com.mmorikawa.feature.reading_list.navigation.readingListRoute
 import com.mmorikawa.feature.recommendation.navigation.recommendationRoute
 
 @Stable
@@ -18,6 +19,7 @@ class BookRecAppState(
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
             recommendationRoute -> TopLevelDestination.RECOMMENDATIONS
+            readingListRoute -> TopLevelDestination.READING_LIST
             else -> null
         }
 }

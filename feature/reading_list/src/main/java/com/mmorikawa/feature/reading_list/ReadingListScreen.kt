@@ -11,15 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mmorikawa.core.testing.data.getFakeUserBookData
+import com.mmorikawa.core.ui.BookFeedUiState
 import com.mmorikawa.core.ui.bookFeed
 
 @Composable
-fun ReadingListScreen() {
+internal fun ReadingListRoute() {
     // TODO: Use actual data, this is also the incorrect type of data
     val books = getFakeUserBookData()
+    ReadingListScreen(feedState = BookFeedUiState.Success(books))
+}
+
+@Composable
+fun ReadingListScreen(feedState: BookFeedUiState) {
     LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
         bookFeed(
-            feedItems = books,
+            feedState = feedState,
             leadingContent = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // TODO: Once ranking is implemented fix this
