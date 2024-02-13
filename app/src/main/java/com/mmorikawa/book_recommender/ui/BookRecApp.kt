@@ -27,6 +27,7 @@ fun BookRecApp() {
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
+        // TODO: Use state to determine
         Scaffold(topBar = {
             CenterAlignedTopAppBar(title = { Text(text = "App Name Here") })
         }, bottomBar = {

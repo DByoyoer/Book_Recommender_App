@@ -33,9 +33,11 @@ android {
 }
 
 dependencies {
+    val nav_version = "2.7.7"
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
     implementation(project(":core:testing"))
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")

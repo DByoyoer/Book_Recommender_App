@@ -50,9 +50,11 @@ android {
 }
 
 dependencies {
+    val nav_version = "2.7.7"
+
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(project(":core:designsystem"))
-    implementation("androidx.navigation:navigation-common-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-common-ktx:$nav_version")
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
     implementation(project(":feature:recommendation"))
@@ -71,7 +73,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
