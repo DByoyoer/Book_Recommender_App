@@ -14,15 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import com.mmorikawa.book_recommender.navigation.BookRecNavHost
 import com.mmorikawa.book_recommender.navigation.TopLevelDestination
 import com.mmorikawa.core.designsystem.component.BookRecNavBar
 import com.mmorikawa.core.designsystem.component.BookRecNavBarItem
-import com.mmorikawa.feature.history.HistoryScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookRecApp() {
+fun BookRecApp(appState: BookRecAppState = rememberBookRecAppState()) {
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
@@ -32,16 +33,14 @@ fun BookRecApp() {
             CenterAlignedTopAppBar(title = { Text(text = "App Name Here") })
         }, bottomBar = {
             BookRecBottomBar(
-                destinations = TopLevelDestination.entries,
-                onNavigateToDestination = {/* TODO: Navigation */ },
-                currentDestination = null
+                destinations = appState.topLevelDestinations,
+                onNavigateToDestination = { appState::navigateToTopLevelDestination },
+                currentDestination = appState.currentDestination
             )
         }, modifier = Modifier.fillMaxSize()
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                //RecommendationScreen()
-                //ReadingListScreen()
-                HistoryScreen()
+                BookRecNavHost(appState = appState)
             }
         }
 
@@ -62,7 +61,7 @@ private fun BookRecBottomBar(
     ) {
         destinations.forEach { destination ->
             // TODO: Determine if current destination is selected
-            val selected = false
+            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
             BookRecNavBarItem(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
@@ -74,4 +73,10 @@ private fun BookRecBottomBar(
     }
 
 }
+
+// Taken from NowInAndroid app without understanding how it works yet
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
+    this?.hierarchy?.any {
+        it.route?.contains(destination.name, true) ?: false
+    } ?: false
 
