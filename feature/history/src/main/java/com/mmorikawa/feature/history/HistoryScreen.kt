@@ -17,16 +17,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mmorikawa.core.testing.data.getFakeUserBookData
+import com.mmorikawa.core.ui.BookFeedUiState
 import com.mmorikawa.core.ui.bookFeed
+
+@Composable
+internal fun HistoryRoute() {
+    // TODO: Use actual data, this is also the incorrect type of data
+    val books = getFakeUserBookData()
+    // TODO: Use viewmodel
+    HistoryScreen(feedState = BookFeedUiState.Success(books))
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen() {
-    // TODO: Use actual data, this is also the incorrect type of data
-    val books = getFakeUserBookData()
+fun HistoryScreen(feedState: BookFeedUiState) {
+
     // TODO: Extract to string resources
     val options = listOf("This Month", "This Year", "All Time")
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        // TODO: Maybe extract this to DesignSystem
         SingleChoiceSegmentedButtonRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -43,8 +52,7 @@ fun HistoryScreen() {
             }
         }
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
-            bookFeed(
-                feedItems = books,
+            bookFeed(feedState = feedState,
                 leadingContent = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AsyncImage(
@@ -53,11 +61,9 @@ fun HistoryScreen() {
                         )
                     }
                 },
-                headlineContent = { Text(it.title) },
-                /* TODO: Fetch user's rating */
+                headlineContent = { Text(it.title) },/* TODO: Fetch user's rating */
                 supportingContent = { Text("Rated: 4/5 on 12/31/23") },
-                overlineContent = { Text(it.author) }
-            )
+                overlineContent = { Text(it.author) })
         }
     }
 
