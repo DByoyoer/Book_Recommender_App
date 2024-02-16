@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -24,3 +25,6 @@ include(":feature:history")
 include(":feature:settings")
 include(":feature:recommendation")
 include(":core:testing")
+
+
+
