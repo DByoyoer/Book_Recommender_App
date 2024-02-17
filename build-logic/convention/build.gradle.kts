@@ -21,4 +21,35 @@ tasks.withType<KotlinCompile>().configureEach {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplicationCompose") {
+            id = "book_recommender.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+        register("androidApplication") {
+            id = "book_recommender.android.application"
+            implementationClass = "AndroidApplication"
+        }
+        register("androidLibraryCompose") {
+            id = "book_recommender.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "book_recommender.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("androidFeature") {
+            id = "book_recommender.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "book_recommender.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
+
+    }
 }
