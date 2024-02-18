@@ -6,12 +6,9 @@ plugins {
 
 android {
     namespace = "com.mmorikawa.book_recommender"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.mmorikawa.book_recommender"
-        minSdk = 28
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
