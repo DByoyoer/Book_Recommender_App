@@ -32,7 +32,7 @@ gradlePlugin {
         }
         register("androidApplication") {
             id = "book_recommender.android.application"
-            implementationClass = "AndroidApplication"
+            implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibraryCompose") {
             id = "book_recommender.android.library.compose"

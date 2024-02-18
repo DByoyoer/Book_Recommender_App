@@ -10,7 +10,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply {
                 apply("book_recommender.android.library")
-                apply("book_recommender.android.hilt")
+                //apply("book_recommender.android.hilt")
             }
             extensions.configure<LibraryExtension> {
                 //  Nothing yet

@@ -3,11 +3,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidHIltConventionPlugin : Plugin<Project> {
+class AndroidHiltConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply("dagger.hilt.android.plugin")
+                apply("com.google.dagger.hilt.android")
                 apply("org.jetbrains.kotlin.kapt")
             }
 
