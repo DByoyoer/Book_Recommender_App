@@ -1,6 +1,7 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("book_recommender.android.application")
+    id("book_recommender.android.application.compose")
+    id("book_recommender.android.hilt")
 }
 
 android {
@@ -29,19 +30,6 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -52,18 +40,13 @@ android {
 dependencies {
 
 
-    implementation(libs.androidx.constraintlayout)
     implementation(project(":core:designsystem"))
-    implementation(libs.androidx.navigation.common.ktx)
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
     implementation(project(":feature:recommendation"))
     implementation(project(":feature:reading_list"))
     implementation(project(":feature:history"))
 
-    val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -72,6 +55,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)
