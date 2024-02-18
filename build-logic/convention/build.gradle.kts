@@ -50,6 +50,10 @@ gradlePlugin {
             id = "book_recommender.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = "book_recommender.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
 
     }
 }
