@@ -9,16 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.mmorikawa.core.testing.data.getFakeUserBookData
 import com.mmorikawa.core.ui.BookFeedUiState
 import com.mmorikawa.core.ui.bookFeed
 
 @Composable
-internal fun ReadingListRoute() {
-    // TODO: Use actual data, this is also the incorrect type of data
-    val books = getFakeUserBookData()
-    ReadingListScreen(feedState = BookFeedUiState.Success(books))
+internal fun ReadingListRoute(
+    viewModel: ReadingListViewModel = hiltViewModel()
+) {
+    ReadingListScreen(feedState = viewModel.feedUiState)
 }
 
 @Composable

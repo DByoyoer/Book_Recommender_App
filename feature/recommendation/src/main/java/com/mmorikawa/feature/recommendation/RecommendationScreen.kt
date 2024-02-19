@@ -5,19 +5,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.mmorikawa.core.testing.data.getFakeUserBookData
 import com.mmorikawa.core.ui.BookFeedUiState
 import com.mmorikawa.core.ui.bookFeed
 
 
 @Composable
-internal fun RecommendationRoute() {
-    // TODO: Replace with actual data and use viewmodels
-    val books = getFakeUserBookData(20)
-    val feedState = BookFeedUiState.Success(books)
-
-    RecommendationScreen(feedState = feedState)
+internal fun RecommendationRoute(
+    viewModel: RecommendationViewModel = hiltViewModel()
+) {
+    RecommendationScreen(feedState = viewModel.feedUiState)
 
 }
 

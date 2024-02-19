@@ -22,8 +22,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -56,4 +55,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     androidTestImplementation(project(":core:testing"))
+}
+
+kapt {
+    correctErrorTypes = true
 }
