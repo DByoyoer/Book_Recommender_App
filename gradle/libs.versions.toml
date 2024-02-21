@@ -4,11 +4,13 @@ androidDesugarJdkLibs = "2.0.4"
 androidGradlePlugin = "8.2.2"
 androidxComposeBom = "2024.02.00"
 androidxComposeCompiler = "1.5.8"
+androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
 androidxTestCore = "1.5.0"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
 androidxTestExt = "1.1.5"
+appcompat = "1.6.1"
 coil = "2.5.0"
 constraintlayout = "2.1.4"
 core-ktx = "1.12.0"
@@ -19,8 +21,10 @@ junit = "4.13.2"
 kotlin = "1.9.22"
 kotlinxCoroutines = "1.7.3"
 ksp = "1.9.22-1.0.17"
-androidxLifecycle = "2.7.0"
 org-jetbrains-kotlin-jvm = "1.9.22"
+room = "2.6.1"
+
+
 
 [libraries]
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -51,22 +55,27 @@ androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "li
 androidx-navigation-common-ktx = { module = "androidx.navigation:navigation-common-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
-
+room-compiler = { group = "adroidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
 # Build-Logic Libraries
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 

@@ -21,7 +21,6 @@ tasks.withType<KotlinCompile>().configureEach {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
-    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -53,6 +52,10 @@ gradlePlugin {
         register("jvmLibrary") {
             id = "book_recommender.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "book_recommender.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
         }
 
     }

@@ -25,6 +25,5 @@ include(":feature:history")
 include(":feature:settings")
 include(":feature:recommendation")
 include(":core:testing")
-
-
-
+include(":core:data")
+include(":core:database")
