@@ -20,6 +20,7 @@ hiltNavigationCompose = "1.1.0"
 junit = "4.13.2"
 kotlin = "1.9.22"
 kotlinxCoroutines = "1.7.3"
+kotlinxDateime = "0.4.0"
 ksp = "1.9.22-1.0.17"
 org-jetbrains-kotlin-jvm = "1.9.22"
 room = "2.6.1"
@@ -61,6 +62,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateime" }
 room-compiler = { group = "adroidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
