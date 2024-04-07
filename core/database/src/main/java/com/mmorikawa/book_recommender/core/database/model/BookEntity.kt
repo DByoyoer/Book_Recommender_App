@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "books"
+    tableName = "book"
 )
 data class BookEntity(
     @PrimaryKey

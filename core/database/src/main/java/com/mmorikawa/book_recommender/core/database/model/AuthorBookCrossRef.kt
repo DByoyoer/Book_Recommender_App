@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    tableName = "book_authors",
+    tableName = "book_author",
     primaryKeys = ["book_id", "author_id"],
     foreignKeys = [
         ForeignKey(

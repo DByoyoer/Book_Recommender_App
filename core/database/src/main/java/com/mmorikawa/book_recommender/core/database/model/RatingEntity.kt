@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import kotlinx.datetime.Instant
 
 @Entity(
-    tableName = "ratings",
+    tableName = "rating",
     foreignKeys = [
         ForeignKey(
             entity = BookEntity::class,

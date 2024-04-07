@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
  * of allowing users to follow authors.
  * */
 @Entity(
-    tableName = "authors"
+    tableName = "author"
 )
 data class AuthorEntity(
     @PrimaryKey
