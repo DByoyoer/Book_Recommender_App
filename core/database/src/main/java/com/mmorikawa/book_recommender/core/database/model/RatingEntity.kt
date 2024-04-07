@@ -19,7 +19,7 @@ import kotlinx.datetime.Instant
 data class RatingEntity(
     @ColumnInfo(name = "book_id")
     val bookId: Int,
-    val rating: Int,
+    val score: Int,
     @ColumnInfo(name = "rating_text")
     val ratingText: String,
     @ColumnInfo(name = "date_created")
