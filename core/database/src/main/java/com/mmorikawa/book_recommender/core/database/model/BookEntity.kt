@@ -14,5 +14,14 @@ data class BookEntity(
     @ColumnInfo(defaultValue = "")
     val description: String,
     @ColumnInfo(name = "cover_url", defaultValue = "")
-    val coverImageUrl: String
+    val coverImageUrl: String,
+    @ColumnInfo(defaultValue = "")
+    val isbn: String,
+    @ColumnInfo(defaultValue = "")
+    val isbn13: String,
+    @ColumnInfo(name = "lang_code", defaultValue = "")
+    val langCode: String,
+    val pages: Int,
+    @ColumnInfo(name = "original_publication_year")
+    val originalPublicationYear: Int,
 )
