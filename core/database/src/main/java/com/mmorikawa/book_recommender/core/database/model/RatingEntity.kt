@@ -3,6 +3,7 @@ package com.mmorikawa.book_recommender.core.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import kotlinx.datetime.Instant
 
 @Entity(
@@ -18,6 +19,7 @@ import kotlinx.datetime.Instant
 )
 data class RatingEntity(
     @ColumnInfo(name = "book_id")
+    @PrimaryKey
     val bookId: Int,
     val score: Int,
     @ColumnInfo(name = "rating_text")
