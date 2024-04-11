@@ -3,6 +3,8 @@ plugins {
     id("book_recommender.android.library")
     id("book_recommender.android.hilt")
     id("book_recommender.android.room")
+    // Unsure how to add this to the convention plugin
+    id("androidx.room")
 }
 
 android {
@@ -11,6 +13,11 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    // Unsure how to add this to the convention plugin
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
 }
 
 dependencies {
