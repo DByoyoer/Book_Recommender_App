@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NetworkBook(
     val id: Int,
-    val name: String,
+    val title: String,
     val description: String = "",
     val isbn: String = "",
     val isbn13: String = "",
@@ -13,8 +13,8 @@ data class NetworkBook(
     val langCode: String = "",
     val originalPublicationYear: Int = -1,
     val pages: Int = -1,
-    val authors: List<NetworkAuthor> = emptyList(),
-    val genres: List<NetworkGenre>,
+    val authors: List<NetworkAuthor> = listOf(),
+    val genres: List<NetworkGenre> = listOf(),
 )
 
 
