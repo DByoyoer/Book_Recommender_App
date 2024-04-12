@@ -1,5 +1,6 @@
 package com.mmorikawa.book_recommender.core.network.ktor
 
+import com.mmorikawa.book_recommender.core.network.BookRecNetworkDataSource
 import com.mmorikawa.book_recommender.core.network.model.NetworkAuthor
 import com.mmorikawa.book_recommender.core.network.model.NetworkBook
 import com.mmorikawa.book_recommender.core.network.model.NetworkRating
@@ -20,8 +21,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import javax.inject.Singleton
 
-class KtorBookRecApiClient {
+@Singleton
+class KtorBookRecApiClient : BookRecNetworkDataSource {
     private val httpClient = HttpClient(OkHttp) {
         engine {
             config {
@@ -41,31 +44,31 @@ class KtorBookRecApiClient {
         }
     }
 
-    suspend fun getBook(bookId: Int): NetworkBook {
+    override suspend fun getBook(bookId: Int): NetworkBook {
         return httpClient.get("books/$bookId").body()
     }
 
-    suspend fun getBookRecs(): List<NetworkBook> {
+    override suspend fun getBookRecs(): List<NetworkBook> {
         // TODO: Figure out account stuff for user id
         val userId = 1234
         return httpClient.get("users/$userId/recs").body()
     }
 
-    suspend fun getReadingList(): List<NetworkReadingListEntry> {
+    override suspend fun getReadingList(): List<NetworkReadingListEntry> {
         val userId = 53426
         return httpClient.get("users/$userId/reading_list").body()
     }
 
-    suspend fun getRatings() {
+    override suspend fun getRatings(): List<NetworkRating> {
         val userId = 53426
         return httpClient.get("users/$userId/ratings").body()
     }
 
-    suspend fun getAuthor(authorId: Int): NetworkAuthor {
+    override suspend fun getAuthor(authorId: Int): NetworkAuthor {
         return httpClient.get("authors/$authorId").body()
     }
 
-    suspend fun postRating(rating: NetworkRating) {
+    override suspend fun createRating(rating: NetworkRating) {
         val userId = 53426
         val response: HttpResponse = httpClient.post("users/$userId/ratings") {
             contentType(ContentType.Application.Json)
@@ -73,7 +76,7 @@ class KtorBookRecApiClient {
         }
     }
 
-    suspend fun postReadingListEntry(readingListEntry: NetworkReadingListEntry) {
+    override suspend fun createReadingListEntry(readingListEntry: NetworkReadingListEntry) {
         val userId = 53426
         val response: HttpResponse = httpClient.post("users/$userId/reading_list") {
             contentType(ContentType.Application.Json)
@@ -81,7 +84,7 @@ class KtorBookRecApiClient {
         }
     }
 
-    suspend fun putRating(rating: NetworkRating) {
+    override suspend fun updateRating(rating: NetworkRating) {
         val userId = 53426
         val response: HttpResponse = httpClient.put("users/$userId/ratings/${rating.bookId}") {
             contentType(ContentType.Application.Json)
@@ -89,7 +92,7 @@ class KtorBookRecApiClient {
         }
     }
 
-    suspend fun putReadingListEntry(readingListEntry: NetworkReadingListEntry) {
+    override suspend fun updateReadingListEntry(readingListEntry: NetworkReadingListEntry) {
         val userId = 53426
         val response: HttpResponse =
             httpClient.put("users/$userId/reading_list/${readingListEntry.bookId}") {
