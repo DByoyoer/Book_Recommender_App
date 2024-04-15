@@ -27,7 +27,7 @@ import androidx.room.Index
         Index(value = ["genre_id"])
     ]
 )
-data class GenreBookCrossRef(
+data class BookGenreAssociation(
     @ColumnInfo(name = "book_id")
     val bookId: Int,
     @ColumnInfo(name = "genre_id")

@@ -14,7 +14,7 @@ data class BookEntity(
     @ColumnInfo(defaultValue = "")
     val description: String,
     @ColumnInfo(name = "cover_url", defaultValue = "")
-    val coverImageUrl: String,
+    val coverUrl: String,
     @ColumnInfo(defaultValue = "")
     val isbn: String,
     @ColumnInfo(defaultValue = "")

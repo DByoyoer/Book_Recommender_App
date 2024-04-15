@@ -7,10 +7,10 @@ import androidx.room.TypeConverters
 import com.mmorikawa.book_recommender.core.database.dao.BookDao
 import com.mmorikawa.book_recommender.core.database.dao.RatingDao
 import com.mmorikawa.book_recommender.core.database.dao.ReadingListDao
-import com.mmorikawa.book_recommender.core.database.model.AuthorBookCrossRef
 import com.mmorikawa.book_recommender.core.database.model.AuthorEntity
+import com.mmorikawa.book_recommender.core.database.model.BookAuthorAssociation
 import com.mmorikawa.book_recommender.core.database.model.BookEntity
-import com.mmorikawa.book_recommender.core.database.model.GenreBookCrossRef
+import com.mmorikawa.book_recommender.core.database.model.BookGenreAssociation
 import com.mmorikawa.book_recommender.core.database.model.GenreEntity
 import com.mmorikawa.book_recommender.core.database.model.RatingEntity
 import com.mmorikawa.book_recommender.core.database.model.ReadingListEntity
@@ -23,9 +23,9 @@ import com.mmorikawa.book_recommender.core.database.util.InstantConverter
         AuthorEntity::class,
         RatingEntity::class,
         ReadingListEntity::class,
-        AuthorBookCrossRef::class,
+        BookAuthorAssociation::class,
         GenreEntity::class,
-        GenreBookCrossRef::class,
+        BookGenreAssociation::class,
     ],
     version = 2,
     autoMigrations = [

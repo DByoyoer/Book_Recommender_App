@@ -27,7 +27,7 @@ import androidx.room.Index
         Index(value = ["author_id"])
     ]
 )
-data class AuthorBookCrossRef(
+data class BookAuthorAssociation(
     @ColumnInfo(name = "book_id")
     val bookId: Int,
     @ColumnInfo(name = "author_id")
