@@ -24,6 +24,8 @@ data class RatingEntity(
     val score: Int,
     @ColumnInfo(name = "rating_text")
     val ratingText: String,
-    @ColumnInfo(name = "date_created")
-    val dateCreated: Instant
+    @ColumnInfo(name = "date_created", defaultValue = "CURRENT_TIMESTAMP")
+    val dateCreated: Instant,
+    @ColumnInfo(name = "date_updated", defaultValue = "CURRENT_TIMESTAMP")
+    val dateUpdated: Instant
 )
