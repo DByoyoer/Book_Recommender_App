@@ -10,11 +10,11 @@ fun getFakeUserBookData(n: Int = 10): MutableList<UserBookInfo> {
         books.add(
             UserBookInfo(
                 bookInfo = BookInfo(
+                    id = 1,
                     title = "Book Title $i",
-                    author = "Author Lastname$i",
-                    isbn = "000000$i",
-                    bookCoverUrl = "https://images.gr-assets.com/books/1447303603m/2767052.jpg",
-                    genre = "Fantasy"
+                    authors = listOf("Author Lastname$i"),
+                    coverUrl = "https://images.gr-assets.com/books/1447303603m/2767052.jpg",
+                    genres = listOf("Fantasy"),
                 ), userData = UserData(
                     readBooks = setOf("0000005"), readingList = setOf("0000004", "0000006")
                 )

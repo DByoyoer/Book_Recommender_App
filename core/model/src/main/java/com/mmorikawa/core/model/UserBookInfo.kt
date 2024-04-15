@@ -3,9 +3,9 @@ package com.mmorikawa.core.model
 data class UserBookInfo internal constructor(
     val isbn: String,
     val title: String,
-    val genre: String,
+    val genres: List<String>,
     val bookCoverUrl: String,
-    val author: String,
+    val authors: List<String>,
     val isOnReadingList: Boolean,
     val hasBeenRead: Boolean,
 
@@ -13,9 +13,9 @@ data class UserBookInfo internal constructor(
     constructor(bookInfo: BookInfo, userData: UserData) : this(
         isbn = bookInfo.isbn,
         title = bookInfo.title,
-        genre = bookInfo.genre,
-        bookCoverUrl = bookInfo.bookCoverUrl,
-        author = bookInfo.author,
+        genres = bookInfo.genres,
+        bookCoverUrl = bookInfo.coverUrl,
+        authors = bookInfo.authors,
         isOnReadingList = userData.readingList.contains(bookInfo.isbn),
         hasBeenRead = userData.readBooks.contains(bookInfo.isbn)
     )
