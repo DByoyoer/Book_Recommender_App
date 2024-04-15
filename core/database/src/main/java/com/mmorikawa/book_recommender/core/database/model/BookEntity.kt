@@ -21,7 +21,8 @@ data class BookEntity(
     val isbn13: String,
     @ColumnInfo(name = "lang_code", defaultValue = "")
     val langCode: String,
+    @ColumnInfo(defaultValue = "0")
     val pages: Int,
-    @ColumnInfo(name = "original_publication_year")
+    @ColumnInfo(name = "original_publication_year", defaultValue = "0")
     val originalPublicationYear: Int,
 )
