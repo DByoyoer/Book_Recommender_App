@@ -10,10 +10,7 @@ data class PopulatedReadingListEntity(
 )
 
 fun PopulatedReadingListEntity.asExternalModel() = ReadingListEntry(
-    bookId = book.basicBook.id,
-    title = book.basicBook.title,
-    genres = book.genres.map { it.name },
-    authors = book.authors.map { it.name },
+    book = book.asExternalModel(),
     dateAdded = dateAdded,
     ranking = ranking
 )

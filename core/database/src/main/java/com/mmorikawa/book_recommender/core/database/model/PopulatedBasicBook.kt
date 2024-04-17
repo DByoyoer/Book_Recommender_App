@@ -3,7 +3,7 @@ package com.mmorikawa.book_recommender.core.database.model
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.mmorikawa.core.model.BookInfo
+import com.mmorikawa.core.model.BookSimple
 
 data class PopulatedBasicBook(
     @Embedded
@@ -31,7 +31,7 @@ data class PopulatedBasicBook(
     val genres: List<GenreEntity>,
 )
 
-fun PopulatedBasicBook.asExternalModel() = BookInfo(
+fun PopulatedBasicBook.asExternalModel() = BookSimple(
     id = basicBook.id,
     title = basicBook.title,
     coverUrl = basicBook.coverUrl,
