@@ -10,14 +10,14 @@ data class UserBookInfo internal constructor(
     val hasBeenRead: Boolean,
 
     ) {
-    constructor(bookInfo: BookInfo, userData: UserData) : this(
-        isbn = bookInfo.isbn,
-        title = bookInfo.title,
-        genres = bookInfo.genres,
-        bookCoverUrl = bookInfo.coverUrl,
-        authors = bookInfo.authors,
-        isOnReadingList = userData.readingList.contains(bookInfo.isbn),
-        hasBeenRead = userData.readBooks.contains(bookInfo.isbn)
+    constructor(bookDetailed: BookDetailed, userData: UserData) : this(
+        isbn = bookDetailed.isbn,
+        title = bookDetailed.title,
+        genres = bookDetailed.genres,
+        bookCoverUrl = bookDetailed.coverUrl,
+        authors = bookDetailed.authors,
+        isOnReadingList = userData.readingList.contains(bookDetailed.isbn),
+        hasBeenRead = userData.readBooks.contains(bookDetailed.isbn)
     )
 
 

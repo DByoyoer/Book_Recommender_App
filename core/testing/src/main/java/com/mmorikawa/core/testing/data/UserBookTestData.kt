@@ -1,6 +1,6 @@
 package com.mmorikawa.core.testing.data
 
-import com.mmorikawa.core.model.BookInfo
+import com.mmorikawa.core.model.BookDetailed
 import com.mmorikawa.core.model.UserBookInfo
 import com.mmorikawa.core.model.UserData
 
@@ -9,7 +9,7 @@ fun getFakeUserBookData(n: Int = 10): MutableList<UserBookInfo> {
     for (i in 1..n) {
         books.add(
             UserBookInfo(
-                bookInfo = BookInfo(
+                bookDetailed = BookDetailed(
                     id = 1,
                     title = "Book Title $i",
                     authors = listOf("Author Lastname$i"),
