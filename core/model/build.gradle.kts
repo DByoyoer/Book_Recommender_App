@@ -4,5 +4,5 @@ plugins {
 
 
 dependencies {
-// Empty
+    implementation(libs.kotlinx.datetime)
 }
