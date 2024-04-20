@@ -14,6 +14,8 @@ dependencies {
     implementation(project(":core:model"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(project(":core:database"))
+    implementation(project(":core:network"))
 
     testImplementation(project(":core:testing"))
 }
