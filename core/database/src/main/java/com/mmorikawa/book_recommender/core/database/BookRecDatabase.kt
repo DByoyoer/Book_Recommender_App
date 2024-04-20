@@ -4,7 +4,9 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.mmorikawa.book_recommender.core.database.dao.AuthorDao
 import com.mmorikawa.book_recommender.core.database.dao.BookDao
+import com.mmorikawa.book_recommender.core.database.dao.GenreDao
 import com.mmorikawa.book_recommender.core.database.dao.RatingDao
 import com.mmorikawa.book_recommender.core.database.dao.ReadingListDao
 import com.mmorikawa.book_recommender.core.database.model.AuthorEntity
@@ -42,4 +44,6 @@ abstract class BookRecDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
     abstract fun ratingDao(): RatingDao
     abstract fun readingListDao(): ReadingListDao
+    abstract fun authorDao(): AuthorDao
+    abstract fun genreDao(): GenreDao
 }

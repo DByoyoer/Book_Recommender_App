@@ -1,7 +1,9 @@
 package com.mmorikawa.book_recommender.core.database.di
 
 import com.mmorikawa.book_recommender.core.database.BookRecDatabase
+import com.mmorikawa.book_recommender.core.database.dao.AuthorDao
 import com.mmorikawa.book_recommender.core.database.dao.BookDao
+import com.mmorikawa.book_recommender.core.database.dao.GenreDao
 import com.mmorikawa.book_recommender.core.database.dao.RatingDao
 import com.mmorikawa.book_recommender.core.database.dao.ReadingListDao
 import dagger.Module
@@ -27,4 +29,14 @@ object DaosModule {
     fun providesReadingListDao(
         database: BookRecDatabase
     ): ReadingListDao = database.readingListDao()
+
+    @Provides
+    fun providesAuthorDao(
+        database: BookRecDatabase
+    ): AuthorDao = database.authorDao()
+
+    @Provides
+    fun providesGenreDao(
+        database: BookRecDatabase
+    ): GenreDao = database.genreDao()
 }
