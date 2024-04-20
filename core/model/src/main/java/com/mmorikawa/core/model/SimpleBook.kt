@@ -1,6 +1,6 @@
 package com.mmorikawa.core.model
 
-data class BookSimple(
+data class SimpleBook(
     val id: Int,
     val title: String,
     val coverUrl: String,

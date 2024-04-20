@@ -33,11 +33,11 @@ interface BookDao {
 
     @Transaction
     @Query("SELECT * FROM book WHERE book.id=:bookId")
-    suspend fun getDetailedBookById(bookId: Int): PopulatedDetailedBook
+    suspend fun getDetailedBookById(bookId: Int): PopulatedDetailedBook?
 
     @Transaction
     @Query("SELECT book.id, book.title, book.cover_url FROM book WHERE book.id=:bookId")
-    suspend fun getBasicBookById(bookId: Int): PopulatedBasicBook
+    suspend fun getBasicBookById(bookId: Int): PopulatedBasicBook?
 
     @Query("SELECT * FROM book WHERE book.id IN (:bookIds)")
     fun getBooksByIds(bookIds: List<Int>): List<BookEntity>
