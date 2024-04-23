@@ -4,12 +4,12 @@ import com.mmorikawa.core.model.ReadingListEntry
 
 interface ReadingListRepository {
 
-    suspend fun getReadingList(): List<ReadingListEntry>
+    suspend fun getReadingList(orderByDateAdded: Boolean): List<ReadingListEntry>
 
-    suspend fun addReadingListEntry(bookId: Int, ranking: Int)
+    suspend fun addReadingListEntry(readingListEntry: ReadingListEntry)
 
     suspend fun updateReadingListEntryRanking(readingListEntry: ReadingListEntry)
 
-    suspend fun deleteReadingListEntry(readingListEntry: ReadingListEntry)
+    suspend fun deleteReadingListEntry(bookIds: List<Int>)
 
 }
