@@ -1,6 +1,6 @@
 package com.mmorikawa.core.model
 
-data class BookDetailed(
+data class DetailedBook(
     val id: Int,
     val title: String,
     val description: String = "",
