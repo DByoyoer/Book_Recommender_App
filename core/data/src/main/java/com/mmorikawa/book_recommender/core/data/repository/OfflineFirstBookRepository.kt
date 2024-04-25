@@ -40,7 +40,7 @@ class OfflineFirstBookRepository @Inject constructor(
 
     override suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook> {
         val books = bookDao.getBasicBooksByIds(ids).toMutableMap()
-        if (books.size < ids.size) {
+        if (books.containsValue(null)) {
             for (id in ids) {
                 if (books[id] == null) {
                     val networkBook: NetworkBook = networkDataSource.getBook(id)
@@ -53,8 +53,8 @@ class OfflineFirstBookRepository @Inject constructor(
                 }
             }
         }
-
-        return books.mapValues { it.value.asExternalModel() }.values.toList()
+        // TODO: Find way to remove non-null assertion
+        return books.mapValues { it.value!!.asExternalModel() }.values.toList()
     }
 
     override suspend fun getDetailedBookById(id: Int): DetailedBook {
@@ -68,7 +68,7 @@ class OfflineFirstBookRepository @Inject constructor(
             bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
             book = networkBook.toPopulatedDetailedBook()
         }
-        
+
         return book.asExternalModel()
     }
 }
