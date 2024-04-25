@@ -2,6 +2,7 @@ package com.mmorikawa.book_recommender.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
@@ -44,5 +45,8 @@ interface BookDao {
 
     @Transaction
     @Query("SELECT book.id, book.title, book.cover_url FROM book WHERE book.id IN (:bookIds)")
-    suspend fun getBasicBooksByIds(bookIds: List<Int>): List<PopulatedBasicBook>
+    suspend fun getBasicBooksByIds(bookIds: List<Int>): Map<@MapColumn(
+        columnName = "id",
+        tableName = "book"
+    ) Int, PopulatedBasicBook?>
 }
