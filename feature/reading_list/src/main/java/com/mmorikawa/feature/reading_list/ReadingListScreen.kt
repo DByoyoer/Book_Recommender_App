@@ -1,5 +1,6 @@
 package com.mmorikawa.feature.reading_list
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,13 +27,13 @@ fun ReadingListScreen(feedState: BookFeedUiState) {
     LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
         bookFeed(
             feedState = feedState,
-            leadingContent = {
+            leadingContent = { userBookInfo, index: Int ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // TODO: Once ranking is implemented fix this
-                    Text(text = "1.", modifier = Modifier.padding(horizontal = 16.dp))
+                    Text(text = "${index + 1}", modifier = Modifier.padding(horizontal = 16.dp))
                     AsyncImage(
-                        model = it.bookCoverUrl,
-                        contentDescription = "${it.title} book cover image"
+                        model = userBookInfo.bookCoverUrl,
+                        contentDescription = "${userBookInfo.title} book cover image"
                     )
                 }
             },

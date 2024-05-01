@@ -25,9 +25,10 @@ fun RecommendationScreen(
 ) {
     LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
         bookFeed(feedState,
-            leadingContent = {
+            leadingContent = { userBookInfo, _ ->
                 AsyncImage(
-                    model = it.bookCoverUrl, contentDescription = "${it.title} book cover image"
+                    model = userBookInfo.bookCoverUrl,
+                    contentDescription = "${userBookInfo.title} book cover image"
                 )
             },
             headlineContent = { Text(it.title) },

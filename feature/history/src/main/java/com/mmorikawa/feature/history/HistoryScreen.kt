@@ -52,11 +52,11 @@ fun HistoryScreen(feedState: BookFeedUiState) {
         }
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             bookFeed(feedState = feedState,
-                leadingContent = {
+                leadingContent = { userBookInfo, _ ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AsyncImage(
-                            model = it.bookCoverUrl,
-                            contentDescription = "${it.title} book cover image"
+                            model = userBookInfo.bookCoverUrl,
+                            contentDescription = "${userBookInfo.title} book cover image"
                         )
                     }
                 },

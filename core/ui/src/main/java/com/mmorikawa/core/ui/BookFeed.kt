@@ -1,7 +1,7 @@
 package com.mmorikawa.core.ui
 
 import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -12,7 +12,7 @@ import com.mmorikawa.core.model.UserBookInfo
 
 fun LazyGridScope.bookFeed(
     feedState: BookFeedUiState,
-    leadingContent: @Composable (UserBookInfo) -> Unit,
+    leadingContent: @Composable (UserBookInfo, Int) -> Unit,
     headlineContent: @Composable (UserBookInfo) -> Unit,
     overlineContent: (@Composable (UserBookInfo) -> Unit)? = null,
     supportingContent: (@Composable (UserBookInfo) -> Unit)? = null,
@@ -22,10 +22,12 @@ fun LazyGridScope.bookFeed(
     when (feedState) {
         BookFeedUiState.Loading -> Unit
         is BookFeedUiState.Success -> {
-            items(items = feedState.feed, key = { it.isbn }) { userBookInfo ->
+            itemsIndexed(
+                items = feedState.feed,
+                key = { _: Int, item: UserBookInfo -> item.id }) { index, userBookInfo ->
                 ListItem(
                     leadingContent = {
-                        leadingContent(userBookInfo)
+                        leadingContent(userBookInfo, index)
                     },
                     headlineContent = { headlineContent(userBookInfo) },
                     overlineContent = {
