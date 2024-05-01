@@ -1,12 +1,14 @@
 package com.mmorikawa.book_recommender.core.data.model
 
 import com.mmorikawa.book_recommender.core.database.model.AuthorEntity
+import com.mmorikawa.book_recommender.core.database.model.BasicBook
 import com.mmorikawa.book_recommender.core.database.model.BookAuthorAssociation
 import com.mmorikawa.book_recommender.core.database.model.BookEntity
 import com.mmorikawa.book_recommender.core.database.model.BookGenreAssociation
 import com.mmorikawa.book_recommender.core.database.model.GenreEntity
+import com.mmorikawa.book_recommender.core.database.model.PopulatedBasicBook
+import com.mmorikawa.book_recommender.core.database.model.PopulatedDetailedBook
 import com.mmorikawa.book_recommender.core.network.model.NetworkBook
-import com.mmorikawa.core.model.SimpleBook
 
 fun NetworkBook.asEntity() = BookEntity(
     id = id,
@@ -20,12 +22,20 @@ fun NetworkBook.asEntity() = BookEntity(
     coverUrl = coverUrl
 )
 
-fun NetworkBook.toSimpleBook() = SimpleBook(
-    id = id,
-    title = title,
-    coverUrl = coverUrl,
-    authors = authors.map { it.name },
-    genres = genres.map { it.name }
+fun NetworkBook.toPopulatedSimpleBook() = PopulatedBasicBook(
+    basicBook = BasicBook(
+        id = id,
+        coverUrl = coverUrl,
+        title = title
+    ),
+    authors = authors(),
+    genres = genres()
+)
+
+fun NetworkBook.toPopulatedDetailedBook(): PopulatedDetailedBook = PopulatedDetailedBook(
+    bookEntity = asEntity(),
+    authors = authors(),
+    genres = genres()
 )
 
 fun NetworkBook.authors(): List<AuthorEntity> =
