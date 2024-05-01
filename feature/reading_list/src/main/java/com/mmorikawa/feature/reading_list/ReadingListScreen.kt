@@ -37,8 +37,8 @@ fun ReadingListScreen(feedState: BookFeedUiState) {
                 }
             },
             headlineContent = { Text(it.title) },
-            supportingContent = { Text(it.genre) },
-            overlineContent = { Text(it.author) }
+            supportingContent = { Column { Text(it.genres.toString()) } },
+            overlineContent = { Text(it.authors.toString()) }
         )
     }
 }

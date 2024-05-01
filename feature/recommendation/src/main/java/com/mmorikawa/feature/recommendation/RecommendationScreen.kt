@@ -31,7 +31,7 @@ fun RecommendationScreen(
                 )
             },
             headlineContent = { Text(it.title) },
-            supportingContent = { Text(it.genre) },
-            overlineContent = { Text(it.author) })
+            supportingContent = { Text(it.genres.toString()) },
+            overlineContent = { Text(it.authors.toString()) })
     }
 }

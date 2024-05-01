@@ -62,7 +62,7 @@ fun HistoryScreen(feedState: BookFeedUiState) {
                 },
                 headlineContent = { Text(it.title) },/* TODO: Fetch user's rating */
                 supportingContent = { Text("Rated: 4/5 on 12/31/23") },
-                overlineContent = { Text(it.author) })
+                overlineContent = { Text(it.authors.toString()) })
         }
     }
 
