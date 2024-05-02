@@ -21,10 +21,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class KtorBookRecApiClient : BookRecNetworkDataSource {
+class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
     private val httpClient = HttpClient(OkHttp) {
         engine {
             config {
