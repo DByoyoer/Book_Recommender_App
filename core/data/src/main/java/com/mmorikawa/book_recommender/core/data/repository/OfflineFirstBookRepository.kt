@@ -1,5 +1,7 @@
 package com.mmorikawa.book_recommender.core.data.repository
 
+import com.mmorikawa.book_recommender.core.common.dispatchers.BookRecDispatchers
+import com.mmorikawa.book_recommender.core.common.dispatchers.Dispatcher
 import com.mmorikawa.book_recommender.core.data.model.asEntity
 import com.mmorikawa.book_recommender.core.data.model.authorAssociations
 import com.mmorikawa.book_recommender.core.data.model.authors
@@ -15,24 +17,31 @@ import com.mmorikawa.book_recommender.core.network.BookRecNetworkDataSource
 import com.mmorikawa.book_recommender.core.network.model.NetworkBook
 import com.mmorikawa.core.model.DetailedBook
 import com.mmorikawa.core.model.SimpleBook
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class OfflineFirstBookRepository @Inject constructor(
     private val networkDataSource: BookRecNetworkDataSource,
     private val bookDao: BookDao,
     private val authorDao: AuthorDao,
-    private val genreDao: GenreDao
+    private val genreDao: GenreDao,
+    @Dispatcher(BookRecDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
 ) : BookRepository {
     override suspend fun getSimpleBookById(id: Int): SimpleBook {
-        var book = bookDao.getBasicBookById(id)
-        if (book == null) {
-            val networkBook: NetworkBook = networkDataSource.getBook(id)
-            bookDao.upsertBook(networkBook.asEntity())
-            authorDao.insertOrIgnoreAuthors(networkBook.authors())
-            genreDao.insertOrIgnoreGenres(networkBook.genres())
-            bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
-            bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
-            book = networkBook.toPopulatedSimpleBook()
+
+        return withContext(ioDispatcher) {
+            var book = bookDao.getBasicBookById(id)
+            if (book == null) {
+                val networkBook: NetworkBook = networkDataSource.getBook(id)
+                bookDao.upsertBook(networkBook.asEntity())
+                authorDao.insertOrIgnoreAuthors(networkBook.authors())
+                genreDao.insertOrIgnoreGenres(networkBook.genres())
+                bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
+                bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
+                book = networkBook.toPopulatedSimpleBook()
+            }
+            book.asExternalModel()
         }
 
         return book.asExternalModel()
