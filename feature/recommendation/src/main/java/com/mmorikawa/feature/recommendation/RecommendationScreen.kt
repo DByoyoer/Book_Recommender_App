@@ -15,7 +15,7 @@ import com.mmorikawa.core.ui.bookFeed
 internal fun RecommendationRoute(
     viewModel: RecommendationViewModel = hiltViewModel()
 ) {
-    RecommendationScreen(feedState = viewModel.feedUiState)
+    RecommendationScreen(feedState = viewModel.uiState)
 
 }
 
