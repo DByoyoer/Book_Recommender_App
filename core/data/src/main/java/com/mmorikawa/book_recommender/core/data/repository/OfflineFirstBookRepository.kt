@@ -43,8 +43,6 @@ class OfflineFirstBookRepository @Inject constructor(
             }
             book.asExternalModel()
         }
-
-        return book.asExternalModel()
     }
 
     override suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook> {
@@ -80,4 +78,15 @@ class OfflineFirstBookRepository @Inject constructor(
 
         return book.asExternalModel()
     }
+
+    override suspend fun getRecommendations(): List<SimpleBook> =
+        withContext(ioDispatcher) {
+            val books = networkDataSource.getBookRecs()
+            bookDao.upsertBooks(books.map { it.asEntity() })
+            authorDao.insertOrIgnoreAuthors(books.flatMap { it.authors() })
+            genreDao.insertOrIgnoreGenres(books.flatMap { it.genres() })
+            bookDao.insertBookAuthorAssociations(books.flatMap { it.authorAssociations() })
+            bookDao.insertBookGenreAssociations(books.flatMap { it.genreAssociations() })
+            books.map { it.toPopulatedSimpleBook().asExternalModel() }
+        }
 }

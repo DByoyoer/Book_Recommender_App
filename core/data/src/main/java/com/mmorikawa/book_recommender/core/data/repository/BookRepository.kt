@@ -9,4 +9,6 @@ interface BookRepository {
     suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook>
 
     suspend fun getDetailedBookById(id: Int): DetailedBook
+
+    suspend fun getRecommendations(): List<SimpleBook>
 }
