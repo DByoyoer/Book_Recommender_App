@@ -20,5 +20,5 @@ interface BookRepository {
 
     suspend fun getDetailedBookById(id: Int): DetailedBook
 
-    suspend fun getRecommendations(): List<SimpleBook>
+    fun getRecommendations(): Flow<List<SimpleBook>>
 }

@@ -18,12 +18,12 @@ class RecommendationViewModel @Inject constructor(
 ) : ViewModel() {
     // TODO: Set up repository
     val uiState: StateFlow<UiState<List<SimpleBook>>> =
-        bookRepository.getSimpleBooksStream(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+        bookRepository.getRecommendations()
             .map { UiState.Success(it) }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = UiState.Loading
-        )
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = UiState.Loading
+            )
 
     init {
 

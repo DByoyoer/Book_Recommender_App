@@ -20,6 +20,7 @@ import com.mmorikawa.core.model.DetailedBook
 import com.mmorikawa.core.model.SimpleBook
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -98,12 +99,14 @@ class OfflineFirstBookRepository @Inject constructor(
         return book.asExternalModel()
     }
 
-    override suspend fun getRecommendations(): List<SimpleBook> =
-        withContext(ioDispatcher) {
+    override fun getRecommendations(): Flow<List<SimpleBook>> = flow {
+        val books = withContext(ioDispatcher) {
             val books = networkDataSource.getBookRecs()
             books.map { insertNetworkBook(it) }
             books.map { it.toPopulatedSimpleBook().asExternalModel() }
         }
+        emit(books)
+    }
 
     private suspend fun insertNetworkBook(networkBook: NetworkBook) = withContext(ioDispatcher) {
         Log.d("BOOK_REPOSITORY", "INSERTING $NetworkBook")
