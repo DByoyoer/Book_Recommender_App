@@ -1,5 +1,6 @@
 package com.mmorikawa.book_recommender.core.data.repository
 
+import android.util.Log
 import com.mmorikawa.book_recommender.core.common.dispatchers.BookRecDispatchers
 import com.mmorikawa.book_recommender.core.common.dispatchers.Dispatcher
 import com.mmorikawa.book_recommender.core.data.model.asEntity
@@ -18,6 +19,8 @@ import com.mmorikawa.book_recommender.core.network.model.NetworkBook
 import com.mmorikawa.core.model.DetailedBook
 import com.mmorikawa.core.model.SimpleBook
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -28,51 +31,67 @@ class OfflineFirstBookRepository @Inject constructor(
     private val genreDao: GenreDao,
     @Dispatcher(BookRecDispatchers.IO) private val ioDispatcher: CoroutineDispatcher
 ) : BookRepository {
+    override fun getSimpleBookStream(id: Int): Flow<SimpleBook> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getDetailedBookStream(id: Int): Flow<SimpleBook> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getDetailedBooksStream(ids: List<Int>): Flow<List<SimpleBook>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSimpleBooksStream(ids: List<Int>): Flow<List<SimpleBook>> =
+        bookDao.observeBasicBooksByIds(ids).map { bookMap ->
+            Log.d("Blah", "$bookMap")
+            if (bookMap.size != ids.size) {
+                for (id in ids) {
+                    if (bookMap[id] == null) {
+                        val networkBook = networkDataSource.getBook(id)
+                        insertNetworkBook(networkBook)
+                    }
+                }
+            }
+            bookMap.values.map { it.asExternalModel() }
+        }
+
     override suspend fun getSimpleBookById(id: Int): SimpleBook {
 
         return withContext(ioDispatcher) {
             var book = bookDao.getBasicBookById(id)
             if (book == null) {
                 val networkBook: NetworkBook = networkDataSource.getBook(id)
-                bookDao.upsertBook(networkBook.asEntity())
-                authorDao.insertOrIgnoreAuthors(networkBook.authors())
-                genreDao.insertOrIgnoreGenres(networkBook.genres())
-                bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
-                bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
+                insertNetworkBook(networkBook)
                 book = networkBook.toPopulatedSimpleBook()
             }
             book.asExternalModel()
         }
     }
 
-    override suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook> {
-        val books = bookDao.getBasicBooksByIds(ids).toMutableMap()
-        if (books.containsValue(null)) {
-            for (id in ids) {
-                if (books[id] == null) {
-                    val networkBook: NetworkBook = networkDataSource.getBook(id)
-                    bookDao.upsertBook(networkBook.asEntity())
-                    authorDao.insertOrIgnoreAuthors(networkBook.authors())
-                    genreDao.insertOrIgnoreGenres(networkBook.genres())
-                    bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
-                    bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
-                    books[id] = networkBook.toPopulatedSimpleBook()
+    override suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook> =
+        withContext(ioDispatcher) {
+            val books = bookDao.getBasicBooksByIds(ids).toMutableMap()
+            Log.d("Blah", "Not flow: $books")
+            if (books.size != ids.size) {
+                for (id in ids) {
+                    if (books[id] == null) {
+                        val networkBook: NetworkBook = networkDataSource.getBook(id)
+                        insertNetworkBook(networkBook)
+                        books[id] = networkBook.toPopulatedSimpleBook()
+                    }
                 }
             }
+            // TODO: Find way to remove non-null assertion
+            books.mapValues { it.value!!.asExternalModel() }.values.toList()
         }
-        // TODO: Find way to remove non-null assertion
-        return books.mapValues { it.value!!.asExternalModel() }.values.toList()
-    }
 
     override suspend fun getDetailedBookById(id: Int): DetailedBook {
         var book = bookDao.getDetailedBookById(id)
         if (book == null || book.bookEntity.description == "") {
             val networkBook = networkDataSource.getBook(id)
-            bookDao.upsertBook(networkBook.asEntity())
-            authorDao.insertOrIgnoreAuthors(networkBook.authors())
-            genreDao.insertOrIgnoreGenres(networkBook.genres())
-            bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
-            bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
+            insertNetworkBook(networkBook)
             book = networkBook.toPopulatedDetailedBook()
         }
 
@@ -82,11 +101,16 @@ class OfflineFirstBookRepository @Inject constructor(
     override suspend fun getRecommendations(): List<SimpleBook> =
         withContext(ioDispatcher) {
             val books = networkDataSource.getBookRecs()
-            bookDao.upsertBooks(books.map { it.asEntity() })
-            authorDao.insertOrIgnoreAuthors(books.flatMap { it.authors() })
-            genreDao.insertOrIgnoreGenres(books.flatMap { it.genres() })
-            bookDao.insertBookAuthorAssociations(books.flatMap { it.authorAssociations() })
-            bookDao.insertBookGenreAssociations(books.flatMap { it.genreAssociations() })
+            books.map { insertNetworkBook(it) }
             books.map { it.toPopulatedSimpleBook().asExternalModel() }
         }
+
+    private suspend fun insertNetworkBook(networkBook: NetworkBook) = withContext(ioDispatcher) {
+        Log.d("BOOK_REPOSITORY", "INSERTING $NetworkBook")
+        bookDao.upsertBook(networkBook.asEntity())
+        authorDao.insertOrIgnoreAuthors(networkBook.authors())
+        genreDao.insertOrIgnoreGenres(networkBook.genres())
+        bookDao.insertBookAuthorAssociations(networkBook.authorAssociations())
+        bookDao.insertBookGenreAssociations(networkBook.genreAssociations())
+    }
 }
