@@ -1,7 +1,6 @@
 package com.mmorikawa.feature.history
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -16,20 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
-import com.mmorikawa.core.ui.BookFeedUiState
-import com.mmorikawa.core.ui.bookFeed
 
 @Composable
 internal fun HistoryRoute(
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
-    HistoryScreen(feedState = viewModel.feedUiState)
+    HistoryScreen()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen(feedState: BookFeedUiState) {
+fun HistoryScreen() {
 
     // TODO: Extract to string resources
     val options = listOf("This Month", "This Year", "All Time")
@@ -51,18 +47,7 @@ fun HistoryScreen(feedState: BookFeedUiState) {
             }
         }
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
-            bookFeed(feedState = feedState,
-                leadingContent = { userBookInfo, _ ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AsyncImage(
-                            model = userBookInfo.bookCoverUrl,
-                            contentDescription = "${userBookInfo.title} book cover image"
-                        )
-                    }
-                },
-                headlineContent = { Text(it.title) },/* TODO: Fetch user's rating */
-                supportingContent = { Text("Rated: 4/5 on 12/31/23") },
-                overlineContent = { Text(it.authors.toString()) })
+
         }
     }
 
