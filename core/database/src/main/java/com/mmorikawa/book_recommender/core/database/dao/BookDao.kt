@@ -13,6 +13,7 @@ import com.mmorikawa.book_recommender.core.database.model.BookEntity
 import com.mmorikawa.book_recommender.core.database.model.BookGenreAssociation
 import com.mmorikawa.book_recommender.core.database.model.PopulatedBasicBook
 import com.mmorikawa.book_recommender.core.database.model.PopulatedDetailedBook
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDao {
@@ -48,5 +49,12 @@ interface BookDao {
     suspend fun getBasicBooksByIds(bookIds: List<Int>): Map<@MapColumn(
         columnName = "id",
         tableName = "book"
-    ) Int, PopulatedBasicBook?>
+    ) Int, PopulatedBasicBook>
+
+    @Transaction
+    @Query("SELECT book.id, book.title, book.cover_url FROM book WHERE book.id IN (:bookIds)")
+    fun observeBasicBooksByIds(bookIds: List<Int>): Flow<Map<@MapColumn(
+        columnName = "id",
+        tableName = "book"
+    ) Int, PopulatedBasicBook>>
 }
