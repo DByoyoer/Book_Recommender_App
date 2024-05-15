@@ -25,3 +25,11 @@ fun PopulatedRating.asExternalModel() = Rating(
     ratingText = ratingText
 )
 
+fun Rating.asEntity() = RatingEntity(
+    bookId = book.id,
+    score = score,
+    ratingText = ratingText,
+    dateCreated = dateCreated,
+    dateUpdated = dateUpdated
+)
+
