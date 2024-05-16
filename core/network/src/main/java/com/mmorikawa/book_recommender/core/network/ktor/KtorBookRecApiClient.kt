@@ -12,6 +12,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
@@ -51,8 +52,13 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
 
     override suspend fun getBookRecs(): List<NetworkBook> {
         // TODO: Figure out account stuff for user id
-        val userId = 1234
+        val userId = 53426
         return httpClient.get("users/$userId/recs").body()
+    }
+
+    override suspend fun deleteRating(bookId: Int) {
+        val userId = 53426
+        httpClient.delete("users/$userId/ratings/$bookId")
     }
 
     override suspend fun getReadingList(): List<NetworkReadingListEntry> {

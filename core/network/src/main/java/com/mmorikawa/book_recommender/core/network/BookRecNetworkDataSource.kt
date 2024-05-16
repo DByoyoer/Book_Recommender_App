@@ -10,6 +10,7 @@ interface BookRecNetworkDataSource {
     suspend fun getBookRecs(): List<NetworkBook>
     suspend fun getReadingList(): List<NetworkReadingListEntry>
     suspend fun getRatings(): List<NetworkRating>
+    suspend fun deleteRating(bookId: Int)
     suspend fun getAuthor(authorId: Int): NetworkAuthor
     suspend fun createRating(rating: NetworkRating)
     suspend fun createReadingListEntry(readingListEntry: NetworkReadingListEntry)
