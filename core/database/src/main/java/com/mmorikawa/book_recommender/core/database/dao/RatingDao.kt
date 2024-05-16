@@ -17,11 +17,22 @@ interface RatingDao {
 
     // TODO: Add order options
     @Transaction
-    @Query("SELECT * FROM rating ORDER BY date_updated DESC")
+    @Query(
+        "SELECT book.id, book.title, book.cover_url, rating.* " +
+                "FROM rating " +
+                "INNER JOIN book ON rating.book_id = book.id " +
+                "ORDER BY rating.date_updated"
+    )
     suspend fun getRatings(): List<PopulatedRating>
 
     @Transaction
-    @Query("SELECT * FROM rating WHERE rating.date_updated >= :timeCutoff ORDER BY date_updated DESC")
+    @Query(
+        "SELECT book.id, book.title, book.cover_url, rating.* " +
+                "FROM rating " +
+                "INNER JOIN book ON rating.book_id = book.id " +
+                "WHERE rating.date_updated >= :timeCutoff " +
+                "ORDER BY rating.date_updated "
+    )
     fun observeAllRatings(timeCutoff: Instant): Flow<List<PopulatedRating>>
 
     @Query("DELETE FROM rating WHERE book_id in (:bookIds)")
