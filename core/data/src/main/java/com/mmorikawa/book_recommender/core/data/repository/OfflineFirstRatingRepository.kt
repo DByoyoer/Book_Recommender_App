@@ -25,7 +25,7 @@ class OfflineFirstRatingRepository @Inject constructor(
         ratingDao.getRatings().map(PopulatedRating::asExternalModel)
     }
 
-    override fun getRatingStream(timeCutoff: Instant): Flow<List<Rating>> =
+    override fun getRatingListStream(timeCutoff: Instant): Flow<List<Rating>> =
         ratingDao.observeAllRatings(timeCutoff).map { it.map(PopulatedRating::asExternalModel) }
 
     override suspend fun createRating(rating: Rating) = withContext(ioDispatcher) {

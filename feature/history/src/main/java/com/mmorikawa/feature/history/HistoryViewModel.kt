@@ -27,9 +27,9 @@ class HistoryViewModel @Inject constructor(
     val chipState = MutableStateFlow<ChipOptions>(ChipOptions.ALL_TIME)
     val ratingFeedUiState: StateFlow<UiState<List<Rating>>> = chipState.flatMapLatest {
         if (it == ChipOptions.ALL_TIME) {
-            ratingRepository.getRatingStream(Instant.DISTANT_PAST)
+            ratingRepository.getRatingListStream(Instant.DISTANT_PAST)
         } else {
-            ratingRepository.getRatingStream(Clock.System.now() - it.duration)
+            ratingRepository.getRatingListStream(Clock.System.now() - it.duration)
         }
     }.map { UiState.Success(it) }.stateIn(
         scope = viewModelScope,

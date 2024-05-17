@@ -5,9 +5,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Instant
 
 interface RatingRepository {
+
+    fun get
     suspend fun getRatings(): List<Rating>
 
-    fun getRatingStream(timeCutoff: Instant): Flow<List<Rating>>
+    fun getRatingListStream(timeCutoff: Instant): Flow<List<Rating>>
 
     suspend fun createRating(rating: Rating)
 
