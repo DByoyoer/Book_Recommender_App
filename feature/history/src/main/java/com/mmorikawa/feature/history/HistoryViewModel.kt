@@ -37,9 +37,9 @@ class HistoryViewModel @Inject constructor(
         initialValue = UiState.Loading
     )
 
-    fun selectChip(option: ChipOptions) {
+    fun selectChip(option: Int) {
         chipState.update {
-            option
+            ChipOptions.values()[option]
         }
     }
 

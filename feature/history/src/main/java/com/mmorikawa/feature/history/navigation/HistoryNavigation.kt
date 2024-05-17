@@ -11,8 +11,9 @@ fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
     this.navigate(historyRoute, navOptions)
 }
 
-fun NavGraphBuilder.historyScreen() {
+
+fun NavGraphBuilder.historyScreen(onBookClick: (Int) -> Unit) {
     composable(route = historyRoute) {
-        HistoryRoute()
+        HistoryRoute(onBookClick)
     }
 }
