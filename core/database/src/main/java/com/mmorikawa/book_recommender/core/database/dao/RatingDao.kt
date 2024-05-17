@@ -15,6 +15,15 @@ interface RatingDao {
     @Upsert
     suspend fun upsertRating(rating: RatingEntity)
 
+    @Transaction
+    @Query(
+        "SELECT book.id, book.title, book.cover_url, rating.* " +
+                "FROM rating " +
+                "INNER JOIN book ON rating.book_id = book.id " +
+                "WHERE rating.book_id = :bookId"
+    )
+    suspend fun getRating(bookId: Int): PopulatedRating
+
     // TODO: Add order options
     @Transaction
     @Query(

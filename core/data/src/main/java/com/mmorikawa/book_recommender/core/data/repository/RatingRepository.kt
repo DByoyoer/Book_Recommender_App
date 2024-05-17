@@ -6,7 +6,7 @@ import kotlinx.datetime.Instant
 
 interface RatingRepository {
 
-    fun get
+    suspend fun getRating(bookId: Int): Rating
     suspend fun getRatings(): List<Rating>
 
     fun getRatingListStream(timeCutoff: Instant): Flow<List<Rating>>
