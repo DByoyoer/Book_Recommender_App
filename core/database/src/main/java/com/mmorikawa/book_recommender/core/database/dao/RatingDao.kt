@@ -22,7 +22,7 @@ interface RatingDao {
                 "INNER JOIN book ON rating.book_id = book.id " +
                 "WHERE rating.book_id = :bookId"
     )
-    suspend fun getRating(bookId: Int): PopulatedRating
+    fun observeRating(bookId: Int): Flow<PopulatedRating>
 
     // TODO: Add order options
     @Transaction

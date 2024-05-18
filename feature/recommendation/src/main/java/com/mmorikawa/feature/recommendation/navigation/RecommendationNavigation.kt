@@ -12,8 +12,8 @@ fun NavController.navigateToRecommendations(navOptions: NavOptions? = null) {
     this.navigate(recommendationRoute, navOptions)
 }
 
-fun NavGraphBuilder.recommendationsScreen() {
+fun NavGraphBuilder.recommendationsScreen(onBookClick: (Int) -> Unit) {
     composable(route = recommendationRoute) {
-        RecommendationRoute()
+        RecommendationRoute(onBookClick)
     }
 }
