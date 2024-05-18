@@ -57,4 +57,8 @@ interface BookDao {
         columnName = "id",
         tableName = "book"
     ) Int, PopulatedBasicBook>>
+
+    @Transaction
+    @Query("SELECT * FROM book WHERE book.id = :bookId")
+    fun observeDetailedBookById(bookId: Int): Flow<PopulatedDetailedBook>
 }
