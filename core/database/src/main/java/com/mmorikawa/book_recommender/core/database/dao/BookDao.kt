@@ -60,5 +60,5 @@ interface BookDao {
 
     @Transaction
     @Query("SELECT * FROM book WHERE book.id = :bookId")
-    fun observeDetailedBookById(bookId: Int): Flow<PopulatedDetailedBook>
+    fun observeDetailedBookById(bookId: Int): Flow<PopulatedDetailedBook?>
 }
