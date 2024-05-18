@@ -41,9 +41,11 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
     implementation(project(":core:database"))
+    implementation(project(":feature:book_detail"))
     implementation(project(":feature:recommendation"))
     implementation(project(":feature:reading_list"))
     implementation(project(":feature:history"))
+
 
 
     implementation(libs.androidx.core.ktx)
