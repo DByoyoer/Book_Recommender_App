@@ -36,7 +36,7 @@ class OfflineFirstBookRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun getDetailedBookStream(id: Int): Flow<SimpleBook> {
+    override fun getDetailedBookStream(id: Int): Flow<DetailedBook> {
         TODO("Not yet implemented")
     }
 

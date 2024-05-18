@@ -10,7 +10,7 @@ interface BookRepository {
 
     fun getSimpleBooksStream(ids: List<Int>): Flow<List<SimpleBook>>
 
-    fun getDetailedBookStream(id: Int): Flow<SimpleBook>
+    fun getDetailedBookStream(id: Int): Flow<DetailedBook>
 
     fun getDetailedBooksStream(ids: List<Int>): Flow<List<SimpleBook>>
 
@@ -19,6 +19,7 @@ interface BookRepository {
     suspend fun getSimpleBooksByIds(ids: List<Int>): List<SimpleBook>
 
     suspend fun getDetailedBookById(id: Int): DetailedBook
+
 
     fun getRecommendations(): Flow<List<SimpleBook>>
 }
