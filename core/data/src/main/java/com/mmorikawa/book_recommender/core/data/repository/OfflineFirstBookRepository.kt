@@ -36,9 +36,16 @@ class OfflineFirstBookRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun getDetailedBookStream(id: Int): Flow<DetailedBook> {
-        TODO("Not yet implemented")
-    }
+    override fun getDetailedBookStream(id: Int): Flow<DetailedBook> =
+        bookDao.observeDetailedBookById(id).map {
+            if (it == null) {
+                val networkBook = networkDataSource.getBook(id)
+                insertNetworkBook(networkBook)
+                networkBook.toPopulatedDetailedBook().asExternalModel()
+            } else {
+                it.asExternalModel()
+            }
+        }
 
     override fun getDetailedBooksStream(ids: List<Int>): Flow<List<SimpleBook>> {
         TODO("Not yet implemented")
@@ -46,7 +53,6 @@ class OfflineFirstBookRepository @Inject constructor(
 
     override fun getSimpleBooksStream(ids: List<Int>): Flow<List<SimpleBook>> =
         bookDao.observeBasicBooksByIds(ids).map { bookMap ->
-            Log.d("Blah", "$bookMap")
             if (bookMap.size != ids.size) {
                 for (id in ids) {
                     if (bookMap[id] == null) {
