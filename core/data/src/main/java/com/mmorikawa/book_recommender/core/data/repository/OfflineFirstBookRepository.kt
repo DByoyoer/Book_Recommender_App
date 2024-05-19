@@ -38,7 +38,7 @@ class OfflineFirstBookRepository @Inject constructor(
 
     override fun getDetailedBookStream(id: Int): Flow<DetailedBook> =
         bookDao.observeDetailedBookById(id).map {
-            if (it == null) {
+            if (it == null || it.bookEntity.description == "") {
                 val networkBook = networkDataSource.getBook(id)
                 insertNetworkBook(networkBook)
                 networkBook.toPopulatedDetailedBook().asExternalModel()
