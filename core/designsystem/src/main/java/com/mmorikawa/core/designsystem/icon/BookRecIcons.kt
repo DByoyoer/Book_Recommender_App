@@ -3,6 +3,8 @@ package com.mmorikawa.core.designsystem.icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.outlined.ManageSearch
+import androidx.compose.material.icons.outlined.AddCircleOutline
+import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.MoreVert
@@ -15,4 +17,6 @@ object BookRecIcons {
     val List = Icons.AutoMirrored.Outlined.List
     val Settings = Icons.Outlined.Settings
     val MoreVert = Icons.Outlined.MoreVert
+    val Back = Icons.Outlined.ArrowBackIosNew
+    val AddCircle = Icons.Outlined.AddCircleOutline
 }

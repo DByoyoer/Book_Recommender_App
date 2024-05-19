@@ -2,10 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="BookDaoTest">
+        <State />
+      </entry>
+      <entry key="ExampleInstrumentedTest">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
       <entry key="core">
+        <State />
+      </entry>
+      <entry key="insertOrIgnoreBasicBooksTest()">
         <State />
       </entry>
     </value>
