@@ -41,7 +41,7 @@ class BookRecAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            recommendationRoute -> TopLevelDestination.RECOMMENDATIONS
+            recommendationRoute -> TopLevelDestination.RECOMMENDATION
             readingListRoute -> TopLevelDestination.READING_LIST
             historyRoute -> TopLevelDestination.HISTORY
             else -> null
@@ -61,7 +61,7 @@ class BookRecAppState(
         }
 
         when (topLevelDestination) {
-            TopLevelDestination.RECOMMENDATIONS -> navController.navigateToRecommendations(
+            TopLevelDestination.RECOMMENDATION -> navController.navigateToRecommendations(
                 topLevelNavOptions
             )
 

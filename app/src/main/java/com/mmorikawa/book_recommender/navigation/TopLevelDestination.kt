@@ -21,7 +21,7 @@ enum class TopLevelDestination(
         iconTextLabelId = BookRecR.string.history_icon_label,
         screenTitleTextId = BookRecR.string.history_screen_title
     ),
-    RECOMMENDATIONS(
+    RECOMMENDATION(
         icon = BookRecIcons.Browse,
         iconTextLabelId = BookRecR.string.browse_icon_label,
         screenTitleTextId = BookRecR.string.browse_screen_title
