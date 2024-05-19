@@ -1,6 +1,7 @@
 package com.mmorikawa.book_recommender.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -30,20 +31,21 @@ fun BookRecApp(appState: BookRecAppState = rememberBookRecAppState()) {
     ) {
         val currentTopLevelDestination = appState.currentTopLevelDestination
         // TODO: Use state to determine
-        Scaffold(topBar = {
+        Scaffold(contentWindowInsets = WindowInsets(0, 0, 0, 0), topBar = {
             // TODO: Extract to designsystem and need to elaborate for extra features
-            CenterAlignedTopAppBar(
-                title = {
-                    if (currentTopLevelDestination != null) {
-                        Text(stringResource(id = currentTopLevelDestination.screenTitleTextId))
-                    }
+            if (currentTopLevelDestination != null) {
+                CenterAlignedTopAppBar(title = {
+                    Text(stringResource(id = currentTopLevelDestination.screenTitleTextId))
                 })
+            }
         }, bottomBar = {
-            BookRecBottomBar(
-                destinations = appState.topLevelDestinations,
-                onNavigateToDestination = appState::navigateToTopLevelDestination,
-                currentDestination = appState.currentDestination
-            )
+            if (currentTopLevelDestination != null) {
+                BookRecBottomBar(
+                    destinations = appState.topLevelDestinations,
+                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    currentDestination = appState.currentDestination
+                )
+            }
         }, modifier = Modifier.fillMaxSize()
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
