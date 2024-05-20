@@ -36,4 +36,7 @@ interface ReadingListDao {
 
     @Query("DELETE FROM reading_list WHERE book_id in (:bookIds)")
     fun deleteReadingListEntriesByIds(bookIds: List<Int>)
+
+    @Query("SELECT MAX(reading_list.ranking) from reading_list")
+    suspend fun getLastRanking(): Int
 }
