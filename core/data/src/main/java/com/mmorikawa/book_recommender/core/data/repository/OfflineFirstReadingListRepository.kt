@@ -2,8 +2,10 @@ package com.mmorikawa.book_recommender.core.data.repository
 
 import com.mmorikawa.book_recommender.core.common.dispatchers.BookRecDispatchers
 import com.mmorikawa.book_recommender.core.common.dispatchers.Dispatcher
+import com.mmorikawa.book_recommender.core.data.model.asNetworkModel
 import com.mmorikawa.book_recommender.core.database.dao.ReadingListDao
 import com.mmorikawa.book_recommender.core.database.model.PopulatedReadingListEntity
+import com.mmorikawa.book_recommender.core.database.model.ReadingListEntity
 import com.mmorikawa.book_recommender.core.database.model.asEntity
 import com.mmorikawa.book_recommender.core.database.model.asExternalModel
 import com.mmorikawa.book_recommender.core.network.BookRecNetworkDataSource
@@ -12,6 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
 import javax.inject.Inject
 
 class OfflineFirstReadingListRepository @Inject constructor(
@@ -42,6 +45,16 @@ class OfflineFirstReadingListRepository @Inject constructor(
 
     override suspend fun addReadingListEntry(readingListEntry: ReadingListEntry) =
         withContext(ioDispatcher) { readingListDao.upsertReadingListEntry(readingListEntry.asEntity()) }
+
+    override suspend fun addReadingListEntryById(bookId: Int) = withContext(ioDispatcher) {
+        val readingListEntity = ReadingListEntity(
+            bookId = bookId,
+            ranking = readingListDao.getLastRanking() + 1,
+            dateAdded = Clock.System.now()
+        )
+        readingListDao.upsertReadingListEntry(readingListEntity)
+        network.createReadingListEntry(readingListEntity.asNetworkModel())
+    }
 
     override suspend fun updateReadingListEntryRanking(readingListEntry: ReadingListEntry) =
         withContext(ioDispatcher) { readingListDao.upsertReadingListEntry(readingListEntry.asEntity()) }

@@ -22,4 +22,5 @@ interface ReadingListRepository {
     suspend fun deleteReadingListEntry(bookIds: List<Int>)
 
 
+    suspend fun addReadingListEntryById(bookId: Int)
 }
