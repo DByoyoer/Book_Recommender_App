@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +23,7 @@ class ReadingListViewModel @Inject constructor(
     // TODO: Set up repository
     val _sortState = MutableStateFlow<Pair<SortValue, SortOrder>>(
         Pair(
-            SortValue.DATE_ADDED,
+            SortValue.RANKING,
             SortOrder.ASCENDING
         )
     )
@@ -49,6 +50,12 @@ class ReadingListViewModel @Inject constructor(
 
     fun updateSortValue(value: SortValue) {
         _sortState.update { Pair(value, it.second) }
+    }
+
+    fun changeRankViaIndex(oldIndex: Int, newIndex: Int) {
+        viewModelScope.launch {
+            readingListRepository.updateReadingListEntryRanking(oldIndex + 1, newIndex + 1)
+        }
     }
 
 
