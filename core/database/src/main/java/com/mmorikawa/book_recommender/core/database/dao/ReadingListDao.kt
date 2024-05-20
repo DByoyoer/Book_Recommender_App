@@ -39,4 +39,16 @@ interface ReadingListDao {
 
     @Query("SELECT MAX(reading_list.ranking) from reading_list")
     suspend fun getLastRanking(): Int
+
+    @Query("UPDATE reading_list SET ranking = ranking - 1 WHERE ranking > :oldRank AND ranking <= :newRank")
+    suspend fun updateRankingsIncrease(oldRank: Int, newRank: Int)
+
+    @Query("UPDATE reading_list SET ranking = ranking + 1 WHERE ranking < :oldRank AND ranking >= :newRank")
+    suspend fun updateRankingsDecrease(oldRank: Int, newRank: Int)
+
+    @Query("UPDATE reading_list SET ranking = :newRank WHERE book_id = :bookId")
+    fun setRank(bookId: Int, newRank: Int)
+
+    @Query("SELECT * FROM reading_list where ranking = :rank LIMIT 1")
+    suspend fun getEntryByRank(rank: Int): ReadingListEntity
 }

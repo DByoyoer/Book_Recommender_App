@@ -23,17 +23,14 @@ class OfflineFirstReadingListRepository @Inject constructor(
     @Dispatcher(BookRecDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : ReadingListRepository {
     override suspend fun getReadingList(
-        orderByDateAdded: Boolean,
-        ascending: Boolean
-    ): List<ReadingListEntry> =
-        withContext(ioDispatcher) {
-            readingListDao.getReadingListBooks(orderByDateAdded = false)
-                .map(PopulatedReadingListEntity::asExternalModel)
-        }
+        orderByDateAdded: Boolean, ascending: Boolean
+    ): List<ReadingListEntry> = withContext(ioDispatcher) {
+        readingListDao.getReadingListBooks(orderByDateAdded = false)
+            .map(PopulatedReadingListEntity::asExternalModel)
+    }
 
     override fun getReadingListStream(
-        orderByDateAdded: Boolean,
-        ascending: Boolean
+        orderByDateAdded: Boolean, ascending: Boolean
     ): Flow<List<ReadingListEntry>> =
         readingListDao.observerAllReadingListBooks(orderByDateAdded).map {
             if (ascending) {
@@ -56,8 +53,16 @@ class OfflineFirstReadingListRepository @Inject constructor(
         network.createReadingListEntry(readingListEntity.asNetworkModel())
     }
 
-    override suspend fun updateReadingListEntryRanking(readingListEntry: ReadingListEntry) =
-        withContext(ioDispatcher) { readingListDao.upsertReadingListEntry(readingListEntry.asEntity()) }
+    override suspend fun updateReadingListEntryRanking(oldRank: Int, newRank: Int) =
+        withContext(ioDispatcher) {
+            val entry = readingListDao.getEntryByRank(oldRank)
+            if (newRank < oldRank) {
+                readingListDao.updateRankingsDecrease(oldRank = oldRank, newRank = newRank)
+            } else {
+                readingListDao.updateRankingsIncrease(oldRank = oldRank, newRank = newRank)
+            }
+            readingListDao.setRank(bookId = entry.bookId, newRank = newRank)
+        }
 
     override suspend fun deleteReadingListEntry(bookIds: List<Int>) =
         withContext(ioDispatcher) { readingListDao.deleteReadingListEntriesByIds(bookIds) }
