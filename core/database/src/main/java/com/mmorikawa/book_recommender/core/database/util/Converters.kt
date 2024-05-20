@@ -10,5 +10,5 @@ class InstantConverter {
 
     @TypeConverter
     fun instantToString(instant: Instant?): String? =
-        toString()
+        instant?.toString()
 }
