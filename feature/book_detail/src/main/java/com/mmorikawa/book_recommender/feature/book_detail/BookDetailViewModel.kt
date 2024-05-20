@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmorikawa.book_recommender.core.data.repository.BookRepository
+import com.mmorikawa.book_recommender.core.data.repository.ReadingListRepository
 import com.mmorikawa.book_recommender.feature.book_detail.navigation.BookDetailArgs
 import com.mmorikawa.core.model.DetailedBook
 import com.mmorikawa.core.ui.UiState
@@ -12,12 +13,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BookDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val bookRepository: BookRepository
+    private val bookRepository: BookRepository,
+    private val readingListRepository: ReadingListRepository
 ) : ViewModel() {
     private val bookDetailArgs: BookDetailArgs = BookDetailArgs(savedStateHandle)
     private val bookId = bookDetailArgs.bookId
@@ -27,5 +30,17 @@ class BookDetailViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = UiState.Loading
         )
+
+    fun addBookToReadingList() {
+        viewModelScope.launch {
+            readingListRepository.addReadingListEntryById(bookId)
+        }
+    }
+
+    fun removeBookFromReadingList() {
+        viewModelScope.launch {
+            readingListRepository.deleteReadingListEntry(listOf(bookId))
+        }
+    }
 
 }
