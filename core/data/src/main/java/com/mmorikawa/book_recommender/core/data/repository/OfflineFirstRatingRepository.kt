@@ -24,6 +24,10 @@ class OfflineFirstRatingRepository @Inject constructor(
     override fun getRatingStream(bookId: Int): Flow<Rating> =
         ratingDao.observeRating(bookId).map(PopulatedRating::asExternalModel)
 
+    override suspend fun getRating(bookId: Int): Rating = withContext(ioDispatcher) {
+        ratingDao.getRatingByBookId(bookId).asExternalModel()
+    }
+
 
     override suspend fun getRatings(): List<Rating> = withContext(ioDispatcher) {
         ratingDao.getRatings().map(PopulatedRating::asExternalModel)

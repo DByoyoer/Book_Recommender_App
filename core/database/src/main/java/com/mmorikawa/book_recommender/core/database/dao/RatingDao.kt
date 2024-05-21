@@ -46,4 +46,8 @@ interface RatingDao {
 
     @Query("DELETE FROM rating WHERE book_id in (:bookIds)")
     fun deleteRatingsByIds(bookIds: List<Int>)
+
+    @Transaction
+    @Query("SELECT * FROM rating WHERE book_id = :bookId")
+    fun getRatingByBookId(bookId: Int): PopulatedRating
 }

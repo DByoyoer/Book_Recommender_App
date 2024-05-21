@@ -7,6 +7,9 @@ import kotlinx.datetime.Instant
 interface RatingRepository {
 
     fun getRatingStream(bookId: Int): Flow<Rating>
+
+    suspend fun getRating(bookId: Int): Rating?
+
     suspend fun getRatings(): List<Rating>
 
     fun getRatingListStream(timeCutoff: Instant): Flow<List<Rating>>
@@ -16,4 +19,5 @@ interface RatingRepository {
     suspend fun updateRating(rating: Rating)
 
     suspend fun deleteRating(ids: List<Int>)
+
 }
