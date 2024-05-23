@@ -43,12 +43,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun BookDetailRoute(
-    onBackClick: () -> Unit, viewModel: BookDetailViewModel = hiltViewModel()
+    onBackClick: () -> Unit,
+    onAddToHistory: (Int) -> Unit,
+    viewModel: BookDetailViewModel = hiltViewModel()
 ) {
     val bookDetailUiState by viewModel.bookDetailUiState.collectAsStateWithLifecycle()
     BookDetailScreen(
         state = bookDetailUiState,
         onAddToReadingList = { viewModel.addBookToReadingList() },
+        onAddToHistory = onAddToHistory,
         onUndo = { viewModel.removeBookFromReadingList() },
         onBackClick = onBackClick,
     )
@@ -59,6 +62,7 @@ internal fun BookDetailRoute(
 internal fun BookDetailScreen(
     state: UiState<DetailedBook>,
     onAddToReadingList: () -> Unit,
+    onAddToHistory: (Int) -> Unit,
     onBackClick: () -> Unit,
     onUndo: () -> Unit
 ) {
@@ -90,7 +94,7 @@ internal fun BookDetailScreen(
                         }
                     }
                     onAddToReadingList()
-                }, ratingOnClick = { /*TODO*/ })
+                }, ratingOnClick = { onAddToHistory(book.id) })
             })
         },
 

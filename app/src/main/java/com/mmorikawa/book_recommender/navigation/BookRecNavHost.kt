@@ -8,6 +8,7 @@ import com.mmorikawa.book_recommender.feature.book_detail.navigation.navigateToB
 import com.mmorikawa.book_recommender.ui.BookRecAppState
 import com.mmorikawa.feature.history.navigation.historyScreen
 import com.mmorikawa.feature.history.navigation.navigateToRatingDetail
+import com.mmorikawa.feature.history.navigation.ratingDetailScreen
 import com.mmorikawa.feature.reading_list.navigation.readingListScreen
 import com.mmorikawa.feature.recommendation.navigation.recommendationRoute
 import com.mmorikawa.feature.recommendation.navigation.recommendationsScreen
@@ -25,6 +26,7 @@ fun BookRecNavHost(
         historyScreen(onBookClick = navController::navigateToRatingDetail)
         recommendationsScreen(onBookClick = navController::navigateToBookDetail)
         readingListScreen()
-        bookDetailScreen(navController::popBackStack)
+        bookDetailScreen(navController::popBackStack, navController::navigateToRatingDetail)
+        ratingDetailScreen()
     }
 }

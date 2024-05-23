@@ -21,11 +21,11 @@ fun NavController.navigateToBookDetail(bookId: Int) {
     }
 }
 
-fun NavGraphBuilder.bookDetailScreen(onBackClick: () -> Unit) {
+fun NavGraphBuilder.bookDetailScreen(onBackClick: () -> Unit, onAddToHistory: (Int) -> Unit) {
     composable(
         route = "book_detail/{$bookDetailIdArg}",
         arguments = listOf(navArgument(bookDetailIdArg) { type = NavType.IntType })
     ) {
-        BookDetailRoute(onBackClick)
+        BookDetailRoute(onBackClick, onAddToHistory)
     }
 }
