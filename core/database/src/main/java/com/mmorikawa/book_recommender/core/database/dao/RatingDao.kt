@@ -48,6 +48,11 @@ interface RatingDao {
     fun deleteRatingsByIds(bookIds: List<Int>)
 
     @Transaction
-    @Query("SELECT * FROM rating WHERE book_id = :bookId")
-    fun getRatingByBookId(bookId: Int): PopulatedRating
+    @Query(
+        "SELECT book.id, book.title, book.cover_url, rating.* " +
+                "FROM rating " +
+                "INNER JOIN book ON rating.book_id = book.id " +
+                "WHERE rating.book_id = :bookId "
+    )
+    fun getRatingByBookId(bookId: Int): PopulatedRating?
 }
