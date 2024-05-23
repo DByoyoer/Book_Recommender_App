@@ -36,7 +36,7 @@ class RatingDetailViewModel @Inject constructor(
                     UiState.Success(
                         Rating(
                             book = bookRepository.getSimpleBookById(bookId),
-                            score = 0,
+                            score = -1f,
                             ratingText = "",
                             dateCreated = Clock.System.now(),
                             dateUpdated = Clock.System.now()
@@ -47,6 +47,23 @@ class RatingDetailViewModel @Inject constructor(
         }
     }
 
+    fun updateRatingText(ratingText: String) {
+        val rating = (uiState as UiState.Success).data
+
+        uiState = UiState.Success(
+            Rating(
+                book = rating.book,
+                score = rating.score,
+                ratingText = ratingText,
+                dateUpdated = Clock.System.now(),
+                dateCreated = rating.dateCreated
+            )
+        )
+    }
+
+    fun updateScore(score: Float) {
+
+    }
 
 
 }
