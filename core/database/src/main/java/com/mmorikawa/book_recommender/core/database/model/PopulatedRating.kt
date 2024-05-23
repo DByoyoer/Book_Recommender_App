@@ -12,7 +12,7 @@ data class PopulatedRating(
     val dateCreated: Instant,
     @ColumnInfo(name = "date_updated")
     val dateUpdated: Instant,
-    val score: Int,
+    val score: Float,
     @ColumnInfo(name = "rating_text")
     val ratingText: String,
 )

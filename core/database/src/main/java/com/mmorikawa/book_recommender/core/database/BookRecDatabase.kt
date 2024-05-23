@@ -29,7 +29,7 @@ import com.mmorikawa.book_recommender.core.database.util.InstantConverter
         GenreEntity::class,
         BookGenreAssociation::class,
     ],
-    version = 4,
+    version = 5,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),

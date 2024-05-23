@@ -3,6 +3,7 @@ package com.mmorikawa.book_recommender.core.database.di
 import android.content.Context
 import androidx.room.Room
 import com.mmorikawa.book_recommender.core.database.BookRecDatabase
+import com.mmorikawa.book_recommender.core.database.DatabaseMigrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,5 +18,6 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun providesBookRecDatabase(@ApplicationContext context: Context): BookRecDatabase =
-        Room.databaseBuilder(context, BookRecDatabase::class.java, "book-rec-database").build()
+        Room.databaseBuilder(context, BookRecDatabase::class.java, "book-rec-database")
+            .addMigrations(DatabaseMigrations.MIGRATION_4_5).build()
 }

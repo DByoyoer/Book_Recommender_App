@@ -21,7 +21,7 @@ data class RatingEntity(
     @ColumnInfo(name = "book_id")
     @PrimaryKey
     val bookId: Int,
-    val score: Int,
+    val score: Float,
     @ColumnInfo(name = "rating_text")
     val ratingText: String,
     @ColumnInfo(name = "date_created", defaultValue = "CURRENT_TIMESTAMP")

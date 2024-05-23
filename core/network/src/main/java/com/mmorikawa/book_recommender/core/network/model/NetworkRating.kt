@@ -9,7 +9,7 @@ data class NetworkRating(
     @SerialName("book_id")
     val bookId: Int,
     @SerialName("score")
-    val score: Int,
+    val score: Float,
     @SerialName("rating_text")
     val ratingText: String = "",
     @SerialName("date_created")
