@@ -1,8 +1,8 @@
 [versions]
-activity-compose = "1.8.2"
+activity-compose = "1.9.0"
 androidDesugarJdkLibs = "2.0.4"
 androidGradlePlugin = "8.2.2"
-androidxComposeBom = "2024.02.00"
+androidxComposeBom = "2024.05.00"
 androidxComposeCompiler = "1.5.8"
 androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
