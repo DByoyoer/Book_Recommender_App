@@ -30,7 +30,7 @@ interface RatingDao {
         "SELECT book.id, book.title, book.cover_url, rating.* " +
                 "FROM rating " +
                 "INNER JOIN book ON rating.book_id = book.id " +
-                "ORDER BY rating.date_updated"
+                "ORDER BY rating.date_updated DESC"
     )
     suspend fun getRatings(): List<PopulatedRating>
 
@@ -40,7 +40,7 @@ interface RatingDao {
                 "FROM rating " +
                 "INNER JOIN book ON rating.book_id = book.id " +
                 "WHERE rating.date_updated >= :timeCutoff " +
-                "ORDER BY rating.date_updated "
+                "ORDER BY rating.date_updated DESC"
     )
     fun observeAllRatings(timeCutoff: Instant): Flow<List<PopulatedRating>>
 
