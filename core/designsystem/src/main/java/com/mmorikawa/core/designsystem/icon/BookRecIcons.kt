@@ -6,6 +6,7 @@ import androidx.compose.material.icons.automirrored.outlined.ManageSearch
 import androidx.compose.material.icons.outlined.AddCircleOutline
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.MoreVert
@@ -21,4 +22,5 @@ object BookRecIcons {
     val Back = Icons.Outlined.ArrowBackIosNew
     val AddCircle = Icons.Outlined.AddCircleOutline
     val SaveCheckmark = Icons.Outlined.Check
+    val Trash = Icons.Outlined.Delete
 }

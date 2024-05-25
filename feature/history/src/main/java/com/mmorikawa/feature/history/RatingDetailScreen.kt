@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.mmorikawa.core.designsystem.icon.BookRecIcons
 import com.mmorikawa.core.model.Rating
 import com.mmorikawa.core.model.SimpleBook
 import com.mmorikawa.core.ui.UiState
@@ -52,7 +55,15 @@ internal fun RatingDetailScreen(
     }
     val focusManager = LocalFocusManager.current
     Scaffold(
-        topBar = { CenterAlignedTopAppBar(title = { Text("Book Rating") }) },
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Book Rating") },
+                actions = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(BookRecIcons.Trash, contentDescription = "Delete rating button.")
+                    }
+                })
+        },
     ) { padding ->
         UiStateWrapper(uiState = ratingUiState) { rating ->
             Column(
@@ -126,12 +137,12 @@ fun BookHeader(book: SimpleBook) {
             )
             Text(
                 "Author(s): ${
-                    book.authors.toString().removeSurrounding("[]")
+                    book.authors.toString().removeSurrounding(prefix = "[", suffix = "]")
                 }"
             )
             Text(
                 "Genre(s): ${
-                    book.genres.toString().removeSurrounding("[]")
+                    book.genres.toString().removeSurrounding(prefix = "[", suffix = "]")
                 }"
             )
         }
