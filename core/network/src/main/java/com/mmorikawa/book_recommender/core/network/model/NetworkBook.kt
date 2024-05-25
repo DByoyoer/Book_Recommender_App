@@ -8,8 +8,8 @@ data class NetworkBook(
     val id: Int,
     val title: String,
     val description: String = "",
-    val isbn: String = "",
-    val isbn13: String = "",
+    val isbn: String? = "",
+    val isbn13: String? = "",
     @SerialName("cover_url")
     val coverUrl: String = "",
     @SerialName("lang_code")
