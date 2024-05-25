@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,18 +41,26 @@ internal fun RatingDetailRoute(
     viewModel: RatingDetailViewModel = hiltViewModel()
 ) {
     val ratingUiState = viewModel.uiState
-    RatingDetailScreen(ratingUiState, viewModel::updateRatingText)
+    RatingDetailScreen(
+        ratingUiState,
+        viewModel::updateRatingText,
+        viewModel::updateScore,
+        viewModel::saveRating
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun RatingDetailScreen(
-    ratingUiState: UiState<Rating>, onRatingTextUpdate: (String) -> Unit
+    ratingUiState: UiState<Rating>,
+    onRatingTextUpdate: (String) -> Unit,
+    onRatingScoreUpdate: (Float) -> Unit,
+    onSaveButtonClick: () -> Unit
 ) {
     var sliderPosition by remember {
         mutableFloatStateOf(0f)
     }
-    val focusManager = LocalFocusManager.current
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -71,16 +78,10 @@ internal fun RatingDetailScreen(
             ) {
                 BookHeader(book = rating.book)
 
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Slider(
-                        value = sliderPosition,
-                        onValueChange = { sliderPosition = it },
-                        steps = 49,
-                        valueRange = 0f..5f
-                    )
-                    Text("Rating: %.1f".format(sliderPosition))
-
-                }
+                RatingScoreSlider(
+                    sliderPosition = rating.score,
+                    onScoreChange = onRatingScoreUpdate
+                )
 
                 ReviewTextField(text = rating.ratingText, onValueChange = onRatingTextUpdate)
 
@@ -96,7 +97,7 @@ internal fun RatingDetailScreen(
                     }
                     Button(modifier = Modifier
                         .weight(1f)
-                        .padding(8.dp), onClick = { /*TODO*/ }) {
+                        .padding(8.dp), onClick = { onSaveButtonClick() }) {
                         Text("Save")
                     }
                 }
@@ -146,6 +147,20 @@ fun BookHeader(book: SimpleBook) {
                 }"
             )
         }
+    }
+}
+
+@Composable
+fun RatingScoreSlider(sliderPosition: Float, onScoreChange: (Float) -> Unit) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Slider(
+            value = sliderPosition,
+            onValueChange = onScoreChange,
+            steps = 49,
+            valueRange = 0f..5f
+        )
+        Text("Rating: %.1f".format(sliderPosition))
+
     }
 }
 
