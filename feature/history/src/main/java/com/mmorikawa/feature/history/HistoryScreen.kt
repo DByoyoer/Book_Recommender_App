@@ -85,7 +85,7 @@ fun HistoryScreen(
                             },
                             overlineContent = { Text(rating.book.authors.toString()) },
                             headlineContent = { Text(rating.book.title) },
-                            supportingContent = { Text("Rating: ${rating.score} / 5") },
+                            supportingContent = { Text("Rating: %.1f / 5".format(rating.score)) },
                         )
                     }
                 }
