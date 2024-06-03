@@ -53,6 +53,10 @@ class OfflineFirstReadingListRepository @Inject constructor(
         network.createReadingListEntry(readingListEntity.asNetworkModel())
     }
 
+    override suspend fun isInReadingList(bookId: Int): Boolean {
+        return readingListDao.bookIdExists(bookId)
+    }
+
     override suspend fun updateReadingListEntryRanking(oldRank: Int, newRank: Int) =
         withContext(ioDispatcher) {
             val entry = readingListDao.getEntryByRank(oldRank)

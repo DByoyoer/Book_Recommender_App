@@ -51,4 +51,7 @@ interface ReadingListDao {
 
     @Query("SELECT * FROM reading_list where ranking = :rank LIMIT 1")
     suspend fun getEntryByRank(rank: Int): ReadingListEntity
+
+    @Query("SELECT EXISTS (SELECT 1 FROM reading_list where book_id = :bookId)")
+    suspend fun bookIdExists(bookId: Int): Boolean
 }

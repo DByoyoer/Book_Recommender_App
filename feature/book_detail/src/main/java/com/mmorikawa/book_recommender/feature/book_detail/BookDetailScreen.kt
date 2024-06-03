@@ -54,6 +54,7 @@ internal fun BookDetailRoute(
         onAddToHistory = onAddToHistory,
         onUndo = { viewModel.removeBookFromReadingList() },
         onBackClick = onBackClick,
+        isOnReadingList = viewModel.isInReadingListState
     )
 }
 
@@ -64,7 +65,8 @@ internal fun BookDetailScreen(
     onAddToReadingList: () -> Unit,
     onAddToHistory: (Int) -> Unit,
     onBackClick: () -> Unit,
-    onUndo: () -> Unit
+    onUndo: () -> Unit,
+    isOnReadingList: Boolean
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -94,7 +96,10 @@ internal fun BookDetailScreen(
                         }
                     }
                     onAddToReadingList()
-                }, ratingOnClick = { onAddToHistory(book.id) })
+                },
+                    ratingOnClick = { onAddToHistory(book.id) },
+                    readingListEnabled = !isOnReadingList
+                )
             })
         },
 
@@ -116,7 +121,9 @@ fun PlainTextStringList(strings: List<String>, prefix: String = "") {
 }
 
 @Composable
-fun BookDetailDropDownButton(readingListOnclick: () -> Unit, ratingOnClick: () -> Unit) {
+fun BookDetailDropDownButton(
+    readingListOnclick: () -> Unit, ratingOnClick: () -> Unit, readingListEnabled: Boolean
+) {
     var expanded by remember { mutableStateOf(false) }
     Box {
         IconButton(onClick = { expanded = true }) {
@@ -126,7 +133,9 @@ fun BookDetailDropDownButton(readingListOnclick: () -> Unit, ratingOnClick: () -
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             DropdownMenuItem(text = { Text("Add to reading list") },
-                onClick = { readingListOnclick() })
+                onClick = { readingListOnclick() },
+                enabled = readingListEnabled
+            )
             HorizontalDivider()
             DropdownMenuItem(text = { Text("Add to ratings") }, onClick = { ratingOnClick() })
         }
