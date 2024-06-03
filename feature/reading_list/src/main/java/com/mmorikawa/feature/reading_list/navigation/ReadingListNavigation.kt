@@ -12,8 +12,8 @@ fun NavController.navigateToReadingList(navOptions: NavOptions? = null) {
     this.navigate(readingListRoute, navOptions)
 }
 
-fun NavGraphBuilder.readingListScreen() {
+fun NavGraphBuilder.readingListScreen(onBookClick: (Int) -> Unit) {
     composable(route = readingListRoute) {
-        ReadingListRoute()
+        ReadingListRoute(onBookClick = onBookClick)
     }
 }
