@@ -107,4 +107,12 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
                 setBody(readingListEntry)
             }
     }
+
+    override suspend fun getTopNBooks(n: Int): List<NetworkBook> {
+        return httpClient.get("books/top_books") {
+            url {
+                parameters.append("n", "$n")
+            }
+        }.body<List<NetworkBook>>()
+    }
 }
