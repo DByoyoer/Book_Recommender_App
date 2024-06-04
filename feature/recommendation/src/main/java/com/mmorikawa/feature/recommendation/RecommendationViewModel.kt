@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.mmorikawa.book_recommender.core.data.repository.BookRepository
 import com.mmorikawa.core.model.SimpleBook
 import com.mmorikawa.core.ui.UiState
+import com.mmorikawa.core.ui.asUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -16,18 +16,12 @@ import javax.inject.Inject
 class RecommendationViewModel @Inject constructor(
     bookRepository: BookRepository
 ) : ViewModel() {
-    // TODO: Set up repository
     val uiState: StateFlow<UiState<List<SimpleBook>>> =
-        bookRepository.getRecommendations()
-            .map { UiState.Success(it) }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = UiState.Loading
-            )
-
-    init {
-
-    }
+        bookRepository.getRecommendations().asUiState().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = UiState.Loading
+        )
 
 
 }
