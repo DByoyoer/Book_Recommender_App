@@ -19,10 +19,6 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -38,14 +34,14 @@ import com.mmorikawa.core.ui.UiStateWrapper
 
 @Composable
 internal fun RatingDetailRoute(
+    onBackClick: () -> Unit,
     viewModel: RatingDetailViewModel = hiltViewModel()
 ) {
     val ratingUiState = viewModel.uiState
     RatingDetailScreen(
         ratingUiState,
-        viewModel::updateRatingText,
-        viewModel::updateScore,
-        viewModel::saveRating
+        viewModel,
+        onBackClick
     )
 }
 
@@ -53,14 +49,9 @@ internal fun RatingDetailRoute(
 @Composable
 internal fun RatingDetailScreen(
     ratingUiState: UiState<Rating>,
-    onRatingTextUpdate: (String) -> Unit,
-    onRatingScoreUpdate: (Float) -> Unit,
-    onSaveButtonClick: () -> Unit
+    viewModel: RatingDetailViewModel,
+    onBackClick: () -> Unit
 ) {
-    var sliderPosition by remember {
-        mutableFloatStateOf(0f)
-    }
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -68,6 +59,11 @@ internal fun RatingDetailScreen(
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(BookRecIcons.Trash, contentDescription = "Delete rating button.")
+                    }
+                },
+                navigationIcon = {
+                    IconButton(onClick = { onBackClick() }) {
+                        Icon(BookRecIcons.Back, contentDescription = "Back button")
                     }
                 })
         },
@@ -80,10 +76,13 @@ internal fun RatingDetailScreen(
 
                 RatingScoreSlider(
                     sliderPosition = rating.score,
-                    onScoreChange = onRatingScoreUpdate
+                    onScoreChange = viewModel::updateScore
                 )
 
-                ReviewTextField(text = rating.ratingText, onValueChange = onRatingTextUpdate)
+                ReviewTextField(
+                    text = rating.ratingText,
+                    onValueChange = viewModel::updateRatingText
+                )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -92,12 +91,12 @@ internal fun RatingDetailScreen(
                     OutlinedButton(modifier = Modifier
                         .weight(1f)
                         .padding(8.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { onBackClick() }) {
                         Text("Cancel")
                     }
                     Button(modifier = Modifier
                         .weight(1f)
-                        .padding(8.dp), onClick = { onSaveButtonClick() }) {
+                        .padding(8.dp), onClick = { viewModel.saveRating() }) {
                         Text("Save")
                     }
                 }

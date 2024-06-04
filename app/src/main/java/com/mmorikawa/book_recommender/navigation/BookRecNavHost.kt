@@ -27,6 +27,6 @@ fun BookRecNavHost(
         recommendationsScreen(onBookClick = navController::navigateToBookDetail)
         readingListScreen(onBookClick = navController::navigateToBookDetail)
         bookDetailScreen(navController::popBackStack, navController::navigateToRatingDetail)
-        ratingDetailScreen()
+        ratingDetailScreen(onBackClick = navController::popBackStack)
     }
 }

@@ -11,8 +11,7 @@ import com.mmorikawa.feature.history.RatingDetailRoute
 private const val ratingDetailIdArg = "bookId"
 
 internal class RatingDetailArgs(val bookId: Int) {
-    constructor(savedStateHandle: SavedStateHandle) :
-            this(checkNotNull(savedStateHandle[ratingDetailIdArg]) as Int)
+    constructor(savedStateHandle: SavedStateHandle) : this(checkNotNull(savedStateHandle[ratingDetailIdArg]) as Int)
 }
 
 fun NavController.navigateToRatingDetail(bookId: Int) {
@@ -21,11 +20,11 @@ fun NavController.navigateToRatingDetail(bookId: Int) {
     }
 }
 
-fun NavGraphBuilder.ratingDetailScreen() {
+fun NavGraphBuilder.ratingDetailScreen(onBackClick: () -> Unit) {
     composable(
         route = "rating_detail/{$ratingDetailIdArg}",
         arguments = listOf(navArgument(ratingDetailIdArg) { type = NavType.IntType })
     ) {
-        RatingDetailRoute()
+        RatingDetailRoute(onBackClick)
     }
 }
