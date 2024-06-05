@@ -104,5 +104,11 @@ class RatingDetailViewModel @Inject constructor(
 
     }
 
+    fun deleteRating() {
+        viewModelScope.launch(exceptionHandler) {
+            ratingRepository.deleteRating(listOf(bookId))
+        }
+    }
+
 
 }
