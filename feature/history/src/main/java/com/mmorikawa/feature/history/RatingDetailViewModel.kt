@@ -13,6 +13,7 @@ import com.mmorikawa.core.model.Rating
 import com.mmorikawa.core.ui.UiState
 import com.mmorikawa.feature.history.navigation.RatingDetailArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import javax.inject.Inject
@@ -29,6 +30,9 @@ class RatingDetailViewModel @Inject constructor(
         private set
     var uiState by mutableStateOf<UiState<Rating>>(UiState.Loading)
         private set
+
+    private val exceptionHandler =
+        CoroutineExceptionHandler { _, exception -> uiState = UiState.Error(exception.message) }
 
     init {
         viewModelScope.launch {
@@ -89,7 +93,7 @@ class RatingDetailViewModel @Inject constructor(
             dateCreated = rating.dateCreated
         )
         Log.d("Rating Detail", "New($isNewRating)Saved rating: $rating")
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             if (isNewRating) {
                 ratingRepository.createRating(rating)
                 isNewRating = false
