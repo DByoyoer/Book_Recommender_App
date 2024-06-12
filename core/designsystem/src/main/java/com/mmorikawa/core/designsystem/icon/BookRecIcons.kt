@@ -7,12 +7,16 @@ import androidx.compose.material.icons.outlined.AddCircleOutline
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 
 object BookRecIcons {
+    val Filter = Icons.Outlined.FilterAlt
+    val Search = Icons.Outlined.Search
     val Home = Icons.Outlined.Home
     val History = Icons.Outlined.History
     val Browse = Icons.AutoMirrored.Outlined.ManageSearch

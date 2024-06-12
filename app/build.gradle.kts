@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":feature:recommendation"))
     implementation(project(":feature:reading_list"))
     implementation(project(":feature:history"))
+    implementation(project(":feature:search"))
 
 
 

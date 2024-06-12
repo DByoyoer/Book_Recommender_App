@@ -113,6 +113,14 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
             url {
                 parameters.append("n", "$n")
             }
-        }.body<List<NetworkBook>>()
+        }.body()
+    }
+
+    override suspend fun searchBooks(query: String): List<NetworkBook> {
+        return httpClient.get("books") {
+            url {
+                parameters.append("q", query)
+            }
+        }.body()
     }
 }

@@ -12,6 +12,7 @@ import com.mmorikawa.feature.history.navigation.ratingDetailScreen
 import com.mmorikawa.feature.reading_list.navigation.readingListScreen
 import com.mmorikawa.feature.recommendation.navigation.recommendationRoute
 import com.mmorikawa.feature.recommendation.navigation.recommendationsScreen
+import com.mmorikawa.feature.search.navigation.searchScreen
 
 @Composable
 fun BookRecNavHost(
@@ -28,5 +29,6 @@ fun BookRecNavHost(
         readingListScreen(onBookClick = navController::navigateToBookDetail)
         bookDetailScreen(navController::popBackStack, navController::navigateToRatingDetail)
         ratingDetailScreen(onBackClick = navController::popBackStack)
+        searchScreen(onBookClick = navController::navigateToBookDetail)
     }
 }

@@ -6,7 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.mmorikawa.feature.recommendation.RecommendationRoute
 
-const val recommendationRoute = "recommendation_route"
+const val recommendationRoute = "home_route"
 
 fun NavController.navigateToRecommendations(navOptions: NavOptions? = null) {
     this.navigate(recommendationRoute, navOptions)

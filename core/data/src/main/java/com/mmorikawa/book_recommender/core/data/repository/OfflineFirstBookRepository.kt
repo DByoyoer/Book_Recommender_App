@@ -114,6 +114,16 @@ class OfflineFirstBookRepository @Inject constructor(
         emit(books)
     }
 
+    override fun searchBooks(query: String): Flow<List<SimpleBook>> = flow {
+        val books = withContext(ioDispatcher) {
+            val books = networkDataSource.searchBooks(query)
+            Log.d("blah", books.toString())
+            books.map { insertNetworkBook(it) }
+            books.map { it.toPopulatedSimpleBook().asExternalModel() }
+        }
+        emit(books)
+    }
+
     private suspend fun insertNetworkBook(networkBook: NetworkBook) = withContext(ioDispatcher) {
         Log.d("BOOK_REPOSITORY", "INSERTING $NetworkBook")
         bookDao.upsertBook(networkBook.asEntity())

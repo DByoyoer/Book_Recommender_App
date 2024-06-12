@@ -22,4 +22,6 @@ interface BookRepository {
 
 
     fun getRecommendations(): Flow<List<SimpleBook>>
+
+    fun searchBooks(query: String): Flow<List<SimpleBook>>
 }

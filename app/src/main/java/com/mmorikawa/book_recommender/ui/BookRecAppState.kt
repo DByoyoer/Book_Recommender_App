@@ -17,6 +17,8 @@ import com.mmorikawa.feature.reading_list.navigation.navigateToReadingList
 import com.mmorikawa.feature.reading_list.navigation.readingListRoute
 import com.mmorikawa.feature.recommendation.navigation.navigateToRecommendations
 import com.mmorikawa.feature.recommendation.navigation.recommendationRoute
+import com.mmorikawa.feature.search.navigation.navigateToSearch
+import com.mmorikawa.feature.search.navigation.searchRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -41,9 +43,10 @@ class BookRecAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            recommendationRoute -> TopLevelDestination.RECOMMENDATION
+            recommendationRoute -> TopLevelDestination.HOME
             readingListRoute -> TopLevelDestination.READING_LIST
             historyRoute -> TopLevelDestination.HISTORY
+            searchRoute -> TopLevelDestination.BROWSE
             else -> null
         }
 
@@ -61,7 +64,7 @@ class BookRecAppState(
         }
 
         when (topLevelDestination) {
-            TopLevelDestination.RECOMMENDATION -> navController.navigateToRecommendations(
+            TopLevelDestination.HOME -> navController.navigateToRecommendations(
                 topLevelNavOptions
             )
 
@@ -69,13 +72,14 @@ class BookRecAppState(
                 topLevelNavOptions
             )
 
+            TopLevelDestination.BROWSE -> navController.navigateToSearch(topLevelNavOptions)
+
             TopLevelDestination.HISTORY -> navController.navigateToHistory(topLevelNavOptions)
 
             TopLevelDestination.SETTINGS -> null
-
-            TopLevelDestination.HOME -> null
 
 
         }
     }
 }
+

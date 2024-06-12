@@ -4,7 +4,7 @@
     <string name="history_icon_label">History</string>
     <string name="history_screen_title">Reading History</string>
     <string name="browse_icon_label">Browse</string>
-    <string name="browse_screen_title">Browse Recommendations</string>
+    <string name="browse_screen_title">Browse Books</string>
     <string name="list_icon_label">Read List</string>
     <string name="list_screen_tile">Reading List</string>
     <string name="settings">Settings</string>

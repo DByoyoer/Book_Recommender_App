@@ -17,4 +17,5 @@ interface BookRecNetworkDataSource {
     suspend fun updateRating(rating: NetworkRating)
     suspend fun updateReadingListEntry(readingListEntry: NetworkReadingListEntry)
     suspend fun getTopNBooks(n: Int): List<NetworkBook>
+    suspend fun searchBooks(query: String): List<NetworkBook>
 }
