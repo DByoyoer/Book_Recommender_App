@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
+
 plugins {
     id("book_recommender.android.application")
     id("book_recommender.android.application.compose")
@@ -10,7 +12,8 @@ android {
     defaultConfig {
         applicationId = "com.mmorikawa.book_recommender"
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
+        archivesName = "book-rec-$versionName"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -20,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
