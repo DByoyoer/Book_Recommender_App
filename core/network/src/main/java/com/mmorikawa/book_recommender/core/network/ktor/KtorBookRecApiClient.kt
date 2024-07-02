@@ -46,28 +46,27 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
         }
     }
 
+    // TODO: Change this to be stored on device after login
+    private val userId: Int = 53426
+
     override suspend fun getBook(bookId: Int): NetworkBook {
         return httpClient.get("books/$bookId").body()
     }
 
     override suspend fun getBookRecs(): List<NetworkBook> {
         // TODO: Figure out account stuff for user id
-        val userId = 53426
         return httpClient.get("users/$userId/recs").body()
     }
 
     override suspend fun deleteRating(bookId: Int) {
-        val userId = 53426
         httpClient.delete("users/$userId/ratings/$bookId")
     }
 
     override suspend fun getReadingList(): List<NetworkReadingListEntry> {
-        val userId = 53426
         return httpClient.get("users/$userId/reading_list").body()
     }
 
     override suspend fun getRatings(): List<NetworkRating> {
-        val userId = 53426
         return httpClient.get("users/$userId/ratings").body()
     }
 
@@ -76,7 +75,6 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
     }
 
     override suspend fun createRating(rating: NetworkRating) {
-        val userId = 53426
         val response: HttpResponse = httpClient.post("users/$userId/ratings") {
             contentType(ContentType.Application.Json)
             setBody(rating)
@@ -100,7 +98,6 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
     }
 
     override suspend fun updateReadingListEntry(readingListEntry: NetworkReadingListEntry) {
-        val userId = 53426
         val response: HttpResponse =
             httpClient.put("users/$userId/reading_list/${readingListEntry.bookId}") {
                 contentType(ContentType.Application.Json)
