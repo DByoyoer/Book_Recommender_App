@@ -42,7 +42,7 @@ class KtorBookRecApiClient @Inject constructor() : BookRecNetworkDataSource {
             level = LogLevel.ALL
         }
         defaultRequest {
-            url("http://10.0.2.2:8000/")
+            url("https://bookrec.azurewebsites.net/")
         }
     }
 
